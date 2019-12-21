@@ -30,7 +30,12 @@ public class PersonaBean {
      }
      
      
-     // metodi GET
+     public PersonaBean(String usr, String psw) {
+		this.username=usr;
+		this.password=psw;
+	}
+
+	// metodi GET
 	public String getUsername() {
 		return username;
 	}
