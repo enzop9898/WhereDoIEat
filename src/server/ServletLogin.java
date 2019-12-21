@@ -35,7 +35,7 @@ public class ServletLogin extends HttpServlet {
 		PersonaBean userB = getUsrPsw(request);
 
 		if (userB == null)     // no login e/o no password -> redirigo a login form 
-			response.sendRedirect("Home.jsp");    // non ho bisogno di mandargli parametri. Il nome login.jsp si vedrà nel browser
+			response.sendRedirect("Homwe.jsp");    // non ho bisogno di mandargli parametri. Il nome login.jsp si vedrà nel browser
 		else {
 			try{
 				PersonaDAO ubd = new PersonaDAO();
@@ -44,7 +44,7 @@ public class ServletLogin extends HttpServlet {
 				if (ub==null) {    // login e/o password sbagliati -> chiamo login form  con messaggio errore
 									// il nome login.jsp non si vedrà nel browser
 					request.setAttribute("denied", true);
-					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
 					requestDispatcher.forward(request, response);
 				}else {
 					// l'utente è ammesso al sito: inserisco dati di login in cookies e do risposta
@@ -87,18 +87,18 @@ public class ServletLogin extends HttpServlet {
 		Cookie[] c = request.getCookies();   // tramite cookie
 		if (c!=null) { 
 			for(int i=0;i<c.length;i++) {
-				if (c[i].getName().equals("usr")) 
+				if (c[i].getName().equals("username")) 
 					usr = c[i].getValue();
-				if (c[i].getName().equals("psw")) 
+				if (c[i].getName().equals("password")) 
 					psw = c[i].getValue();	
 			}
 		} 	
 		if (usr == null || psw == null){		// se recupero tramite cookie fallisce, allora tramite parametri	
 			String temp;                        
-			temp = request.getParameter("usr");
+			temp = request.getParameter("username");
 			if (temp!= null) {
 				usr = temp;
-				temp = request.getParameter("psw");   
+				temp = request.getParameter("password");   
 				if (temp!= null) {
 					psw = temp;
 				}

@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="bean.*"  import="dao.*" %>
+
 <!DOCTYPE html>
 <html lang="it">
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -19,16 +24,25 @@
 <nav id="navbar1" class="navbar navbar-expand-lg">
   <div class="d-flex flex-grow-1">
       <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
-      <a class="navbar-brand" href="index.jsp">
+      <a class="navbar-brand" href="Home.jsp">
          <img src="foto/final.PNG" alt="WhereDoIEat" id="logo">
       </a>
   </div>
               <a id="collegamento2" href="faq.html" class="nav-link">Domande Frequenti</a>
+              <%
+                 PersonaBean p= new PersonaBean();
+                 p=(PersonaBean) request.getSession().getAttribute("cliente");
+                 if (p!=null) {
+              %>
+              <a id="collegamento" href="ServletLogout" class="nav-link">Logout</a>
+              <a id="collegamento" href="areaPersonale.jsp" class="nav-link">Area Personale</a>
+              <% } else { %>
               <a id="collegamento" href="login.jsp" class="nav-link">Accedi</a>
      
           <li class="nav-item">
               <a id="collegamento" href="registrazione.jsp" class="nav-link">Registrati ora</a>
-          </li>       
+          </li>   
+          <%} %>    
           
 </nav>
 
