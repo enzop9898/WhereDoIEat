@@ -5,10 +5,11 @@ function control(form)
 	
     $("#errorNome").text('');
     $("#errorCognome").text('');
-    $("#errorU").text('Deve contenere almeno 5 caratteri e non piu di 40').css({"color":"grey"});
+    $("#errorU").text('Deve contenere almeno 1 carattere e non piu di 32').css({"color":"grey"});
     $("#errorEmail").text('');
-    $("#errorTel").text('');
-    $("#errorP1").text('La password deve avere almeno 8 caratteri, massimo 16 caratteri e deve contenere un valore numerico e una lettera maiuscola').css({"color":"grey"});
+    $("#errorTel").text('Deve contenere anche il prefisso.').css({"color":"grey"});
+    $("errorCitta").text('');
+    $("#errorP1").text('La password deve avere almeno 8 caratteri, massimo 25 caratteri e deve contenere un valore numerico e una lettera maiuscola').css({"color":"grey"});
     $("#errorP2").text('');
     $("#error").text('');
 
@@ -72,13 +73,42 @@ function control(form)
 		return(false);
 	}
 	
-	var regexTel = "/+39{1}[0-9]{10}";
+	var regexTel = "39{1}[0-9]{10}";
 	if(!($("#telefono").val().match(regexTel))) 
 	{
-		$("#errorTel").text('Non hai inserito un numero di telefono valido').css({"color":"red"});
+		$("#errorTel").text('Non hai inserito un numero di telefono valido.').css({"color":"red"});
 		document.getElementById("telefono").focus();
 		return(false);
 	}
+	
+	if($("#citta").val()=="") 
+	{
+		$("#errorCitta").text('Non hai inserito la tua citta.').css({"color":"red"});
+		document.getElementById("citta").focus();
+		return(false);
+	}
+	
+	if($("#citta").val().length>30) 
+	{
+		$("#errorCitta").text('Il nome della citta è troppo lungo.').css({"color":"red"});
+		document.getElementById("citta").focus();
+		return(false);
+	}
+	
+	if($("#comune").val()=="") 
+	{
+		$("#errorComune").text('Non hai inserito il tuo comune').css({"color":"red"});
+		document.getElementById("comune").focus();
+		return(false);
+	}
+	
+	if($("#comune").val().length>15) 
+	{
+		$("#errorComune").text('Il nome del comune è troppo lungo').css({"color":"red"});
+		document.getElementById("comune").focus();
+		return(false);
+	}
+	
 	 
 	if ($("#email").val()=="")
 	{
@@ -210,7 +240,15 @@ function startEmail(){
 }
 
 function startTelefono() {
-	$("#errorTel").text('');
+	$("#errorTel").text('Deve contenere anche il prefisso.').css({"color":"grey"});
+}
+
+function startCitta() {
+	$("#errorCitta").text('');
+}
+
+function startComune() {
+	$("#errorComune").text('');
 }
 
 function startPassword(){

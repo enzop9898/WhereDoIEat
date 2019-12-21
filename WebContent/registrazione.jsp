@@ -116,8 +116,31 @@
                                     <div class="form-group">
                                         <label  class="grassetto">&nbspTelefono</label>
                                         <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="telefono" id="telefono" onclick="startTelefono()" onkeyup="startTelefono()">
-                                         <p id="errorTel"></p>
+                                         <p id="errorTel" class="suggerimento">Deve contenere anche il prefisso.</p>
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label  class="grassetto">&nbspCitt&agrave</label>
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="citta" id="citta" onclick="startCitta()" onkeyup="startCitta()">
+                                         <p id="errorCitta"></p>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label  class="grassetto">&nbspComune</label>
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="comune" id="comune" onclick="startComune()" onkeyup="startComune()">
+                                         <p id="errorComune"></p>
+                                    </div>
+                                    
+                                     <div class="form-group">
+                                        <label  class="grassetto">&nbspTipo</label>
+                                        <select name="tipo" class="form-control form-control-lg rounded-0 BORDONERO">
+                                            <option value="cliente">Cliente</option>
+                                            <option value="ristoratore">Ristoratore</option>
+                                        </select>  
+                                    </div>
+                                    
+                                    
+                                    
                                     
                                     <div class="form-group">
                                         <label  class="grassetto"><img src="foto/email.png" alt="">&nbspE-mail</label>
