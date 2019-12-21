@@ -111,18 +111,25 @@
                                     <div class="form-group">
                                         <label  class="grassetto"><img src="foto/ominoLogin.png" alt="">&nbspUsername</label>
                                         <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="username" id="username" onclick="startUsername()" onkeyup="startUsername()">
-                                        <p id="errorU" class="suggerimento">Deve contenere almeno 5 caratteri e non piu di 40</p>
+                                        <p id="errorU" class="suggerimento">Deve contenere almeno 1 carattere e al massimo 32</p>
                                     </div>
+                                    <div class="form-group">
+                                        <label  class="grassetto">&nbspTelefono</label>
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="telefono" id="telefono" onclick="startTelefono()" onkeyup="startTelefono()">
+                                         <p id="errorTel"></p>
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <label  class="grassetto"><img src="foto/email.png" alt="">&nbspE-mail</label>
                                         <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="email" id="email" onclick="startEmail()" onkeyup="startEmail()">
                                          <p id="errorEmail"></p>
                                     </div>
+                                    
                                        <p id="errorE"></p>
                                     <div class="form-group">
                                         <label class="grassetto"><img src="foto/chiave.png" alt="">&nbspPassword</label>
                                         <input type="password" class="form-control form-control-lg rounded-0 BORDONERO" name="password" id="password" onclick="startPassword()" onkeyup="startPassword()">
-                                         <p id="errorP1" class="suggerimento">La password deve avere almeno 8 caratteri, massimo 16 caratteri e deve contenere un valore numerico e una lettera maiuscola</p>
+                                         <p id="errorP1" class="suggerimento">La password deve avere almeno 8 caratteri, massimo 25 caratteri e deve contenere un valore numerico e una lettera maiuscola</p>
                                     </div>
                                     <div class="form-group">
                                         <label class="grassetto"><img src="foto/chiave.png" alt="">&nbspRipeti&nbspPassword</label>

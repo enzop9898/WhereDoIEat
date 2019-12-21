@@ -7,6 +7,7 @@ function control(form)
     $("#errorCognome").text('');
     $("#errorU").text('Deve contenere almeno 5 caratteri e non piu di 40').css({"color":"grey"});
     $("#errorEmail").text('');
+    $("#errorTel").text('');
     $("#errorP1").text('La password deve avere almeno 8 caratteri, massimo 16 caratteri e deve contenere un valore numerico e una lettera maiuscola').css({"color":"grey"});
     $("#errorP2").text('');
     $("#error").text('');
@@ -36,18 +37,47 @@ function control(form)
 	 return(false);
 	}	
 	
-	if ($("#username").val().length<5)
+	if ($("#username").val().length<1)
 	{
-		$("#errorU").text('Inserire una username con almeno 5 caratteri.').css({"color":"red"});
+		$("#errorU").text('Inserire una username con almeno 1 carattere.').css({"color":"red"});
 	 document.getElementById("username").focus();
 	 return(false);
 	}
 
-	if ($("#username").val().length>40)
+	if ($("#username").val().length>32)
 	{
-		$("#errorU").text('Inserire una username con massimo 40 caratteri.').css({"color":"red"});
+		$("#errorU").text('Inserire una username con massimo 32 caratteri.').css({"color":"red"});
 	 document.getElementById("password").focus();
 	 return(false);
+	}
+	
+	if($("#telefono").val()=="")
+		{
+		$("#errorTel").text('Non hai inserito il tuo numero di telefono.').css({"color":"red"});
+		document.getElementById("telefono").focus();
+		return(false);
+		}
+	
+	if($("#telefono").val().length<8) 
+	{
+		$("#errorTel").text('Il numero di telefono ha almeno 8 cifre.').css({"color":"red"});
+		document.getElementById("telefono").focus();
+		return(false);
+	}
+	
+	if($("#telefono").val().length>20) 
+	{
+		$("#errorTel").text('Il numero di telefono può avere al massimo 20 cifre.').css({"color":"red"});
+		document.getElementById("telefono").focus();
+		return(false);
+	}
+	
+	var regexTel = "/+39{1}[0-9]{10}";
+	if(!($("#telefono").val().match(regexTel))) 
+	{
+		$("#errorTel").text('Non hai inserito un numero di telefono valido').css({"color":"red"});
+		document.getElementById("telefono").focus();
+		return(false);
 	}
 	 
 	if ($("#email").val()=="")
@@ -172,15 +202,19 @@ function startCognome(){
 }
 
 function startUsername(){
-    $("#errorU").text('Deve contenere almeno 5 caratteri e non piu di 40').css({"color":"grey"});
+    $("#errorU").text('Deve contenere almeno 1 carattere e non piu di 32').css({"color":"grey"});
 }
 
 function startEmail(){
     $("#errorEmail").text('');
 }
 
+function startTelefono() {
+	$("#errorTel").text('');
+}
+
 function startPassword(){
-    $("#errorP1").text('La password deve avere almeno 8 caratteri, massimo 16 caratteri e deve contenere un valore numerico e una lettera maiuscola').css({"color":"grey"});
+    $("#errorP1").text('La password deve avere almeno 8 caratteri, massimo 25 caratteri e deve contenere un valore numerico e una lettera maiuscola').css({"color":"grey"});
 }
 
 function startPassword2(){
