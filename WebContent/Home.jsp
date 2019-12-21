@@ -46,6 +46,15 @@
           
 </nav>
 
+<% 
+     Boolean mess=(Boolean) request.getAttribute("denied3");
+     if(mess!=null) {
+ %>
+ <div>
+      <h5>Benvenuto, <%=p.getNome() %>! <</h5>
+ </div>
+     
+
 <!-- example 8 - center logo on mobile, search right -->
 <nav id="navbar2" class="navbar navbar-expand-lg">
   <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar8">
