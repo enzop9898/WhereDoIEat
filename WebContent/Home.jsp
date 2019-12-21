@@ -39,20 +39,11 @@
               <% } else { %>
               <a id="collegamento" href="login.jsp" class="nav-link">Accedi</a>
      
-          <li class="nav-item">
-              <a id="collegamento" href="registrazione.jsp" class="nav-link">Registrati ora</a>
-          </li>   
+              <a id="collegamento" href="registrazione.jsp" class="nav-link">Registrati ora</a>  
           <%} %>    
           
 </nav>
 
-<% 
-     Boolean mess=(Boolean) request.getAttribute("denied3");
-     if(mess!=null) {
- %>
- <div>
-      <h5>Benvenuto, <%=p.getNome() %>! <</h5>
- </div>
      
 
 <!-- example 8 - center logo on mobile, search right -->
@@ -102,6 +93,14 @@
 </nav>
 
 
+<%
+     Boolean mess=(Boolean) request.getAttribute("welcome"); 
+     if(mess!=null) {
+ %>
+ <div>
+      <h5 class="welcome">Benvenuto, <%=p.getNome() %>! </h5>
+ </div>
+ <%} %>
 
 
 

@@ -35,7 +35,7 @@ public class ServletLogin extends HttpServlet {
 		PersonaBean userB = getUsrPsw(request);
 
 		if (userB == null)     // no login e/o no password -> redirigo a login form 
-			response.sendRedirect("Homwe.jsp");    // non ho bisogno di mandargli parametri. Il nome login.jsp si vedrà nel browser
+			response.sendRedirect("Home.jsp");    // non ho bisogno di mandargli parametri. Il nome login.jsp si vedrà nel browser
 		else {
 			try{
 				PersonaDAO ubd = new PersonaDAO();
@@ -60,7 +60,7 @@ public class ServletLogin extends HttpServlet {
 					request.getSession().setAttribute("tipo", true);
 					}
 					
-					request.getSession().setAttribute("denied3", true);
+					request.setAttribute("welcome", true);
 					request.getSession().setAttribute("nom", ub);
 					
 					

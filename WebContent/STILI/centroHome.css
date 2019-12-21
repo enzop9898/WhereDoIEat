@@ -1,4 +1,10 @@
 /*CENTRO*/
+*.welcome {
+	font-size: 30px;
+	text-align: center;
+	margin-top:30px;
+}
+
 #bottoneNost:hover{     /*BOTTONE NOSTALGIA*/
     background-color: white;
     color: black;

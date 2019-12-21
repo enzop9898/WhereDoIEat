@@ -25,8 +25,6 @@
   </div>
               <a id="collegamento2" href="faq.html" class="nav-link">Domande Frequenti</a>
               <a id="collegamento" href="login.jsp" class="nav-link">Accedi</a>
-     
-          
               <a id="collegamento" href="registrazione.jsp" class="nav-link">Registrati ora</a>
                 
           
@@ -77,9 +75,15 @@
       </div>
   </div>
 </nav>
-
-
-
+<%
+   Boolean err=(Boolean) request.getAttribute("denied");
+   if(err!=null) {
+%>
+<div id="errore">
+<h5>ERRORE!</h5>
+<p>Username o password non corretti</p>
+</div>
+<%} %>
     <!--<div id="MIODIV">-->
     <div class="container py-5">
         <div class="row">
