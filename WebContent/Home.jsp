@@ -203,12 +203,12 @@
         <div class="row mt-3">
   
           <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4"> 
   
             <!-- Content -->
             <h6 class="text-uppercase font-weight-bold">CHI SIAMO</h6>
             <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <p>Salve,siamo tre ragazzi appassionati di Informatica e studenti del Dipartimento di Informatica di UNISA (unico dipartimento in area Informatica del Sud Italia). Abbiamo sviluppo questo sito con lo scopo di fornire ai nostri clienti un modo comodo di conoscere attività e gustare i loro cibi in base ad un sistema di recensioni e valutazioni su queste ultime.</p>
+            <p>Salve,siamo quattro ragazzi appassionati di Informatica e studenti del Dipartimento di Informatica di UNISA. Abbiamo sviluppato questo sito con lo scopo di fornire ai nostri clienti un modo comodo di conoscere attività e gustare i loro cibi in base ad un sistema di recensioni e valutazioni su queste ultime.</p>
   
           </div>
           <!-- Grid column -->

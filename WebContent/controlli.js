@@ -194,21 +194,6 @@ if ($("#password").val().length>16)
 		 document.getElementById("password2").focus();
 		 return(false);
 		}		
-    
-    
-	$.post("servletRegister",$(form).serialize(),function(msg){
-		var lunghezza=msg.length;         //non funzionava con il confronto normale della parola perche ci sarà qualche carattere vuoto in piu
-		if(lunghezza == 10){
-			window.location = 'login.jsp';
-		}
-		else{
-		$("#error").text(msg).css({"color":"red"});			
-		document.getElementById("username").focus();
-		}
-		
-		});
-	
-	return(false);
 }
 
 

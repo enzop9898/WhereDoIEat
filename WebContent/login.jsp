@@ -84,6 +84,17 @@
 <p>Username o password non corretti</p>
 </div>
 <%} %>
+
+<%
+   Boolean regOk=(Boolean) request.getAttribute("regOk");
+   if(regOk!=null) {
+%>
+
+   <div id="regOk">
+   <p>Registrazione effettuata con successo!</p>
+   </div>
+
+<%}   %>
     <!--<div id="MIODIV">-->
     <div class="container py-5">
         <div class="row">
@@ -180,8 +191,7 @@
             <!-- Content -->
             <h6 class="text-uppercase font-weight-bold">CHI SIAMO</h6>
             <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <p>Salve,siamo tre ragazzi appassionati di Informatica e studenti del Dipartimento di Informatica di UNISA (unico dipartimento in area Informatica del Sud Italia). Abbiamo sviluppo questo sito con lo scopo di fornire ai nostri clienti un modo comodo di conoscere attività e gustare i loro cibi in base ad un sistema di recensioni e valutazioni su queste ultime.</p>
-  
+           <p>Salve,siamo quattro ragazzi appassionati di Informatica e studenti del Dipartimento di Informatica di UNISA. Abbiamo sviluppato questo sito con lo scopo di fornire ai nostri clienti un modo comodo di conoscere attività e gustare i loro cibi in base ad un sistema di recensioni e valutazioni su queste ultime.</p>
           </div>
           <!-- Grid column -->
   

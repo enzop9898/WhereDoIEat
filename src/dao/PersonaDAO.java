@@ -243,5 +243,48 @@ public class PersonaDAO {
 		return null;
 	 }
 	
+	public synchronized PersonaBean doRetrieveByEmail(String email){
+		 
+		 Connection conn = null;
+		 PreparedStatement ps = null;
+		 try {
+			PersonaBean p = new PersonaBean(email); 
+			conn = DriverManagerConnectionPool.getConnection();
+			ps = conn.
+					prepareStatement("SELECT * FROM wheredoieat.persona WHERE email = ?");
+			ps.setString(1, email);
+					
+			ResultSet res = ps.executeQuery();
+
+			// 4. Prendi il risultato
+			if(res.next())
+			{
+				p.setUsername(res.getString("username"));
+				p.setNome(res.getString("nome"));
+				p.setCognome(res.getString("cognome"));
+				p.setEmail(res.getString("email"));
+				p.setTelefono(res.getString("telefono"));
+				p.setCitta(res.getString("citta"));
+				p.setTipo(res.getInt("tipo"));
+				p.setComune(res.getString("comune"));
+				p.setPassword(res.getString("password"));
+				return p;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DriverManagerConnectionPool.releaseConnection(conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	 }
+	
 	
 }

@@ -88,16 +88,24 @@
                 <div class="row">
                     <div class="col-md-6 mx-auto">
     
+                            <%
+                             Boolean failed=(Boolean) request.getAttribute("failed");
+                             if(failed!=null) {
+                            %>
+                            <div id="failed">
+                            <p>l'username o la tua email sono gia' registrati sul sito. </p>
+                            </div>
+                            <%} %> 
+   
                         <!-- form card login -->
                         <div class="card rounded-0 CDtot" id="contenitoreTotale">
                             <div class="card-header carta1">
                                 <h3 class="mb-0">REGISTRATI</h3>
                             </div>
                             <div class="card-body">
-                         
                             <p id="error">
 		                    </p> 
-                                  <form action="servletRegister" method="post" onsubmit="return control(this)">                                    
+                                  <form action="ServletRegistrazione" method="post" onsubmit="return control(this)">                                    
                                   <div class="form-group">
                                         <label  class="grassetto">&nbspNome</label>
                                         <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="nome" id="nome" onclick="startNome()" onkeyup="startNome()">
@@ -140,8 +148,6 @@
                                     </div>
                                     
                                     
-                                    
-                                    
                                     <div class="form-group">
                                         <label  class="grassetto"><img src="foto/email.png" alt="">&nbspE-mail</label>
                                         <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="email" id="email" onclick="startEmail()" onkeyup="startEmail()">
@@ -161,7 +167,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-danger btn-lg float-right btn-mio" id="btnLogin">Crea il tuo Account</button>
                                     <div>
-                                     <p>Hai gia un account? <a id="linkReg" href="#">Accedi</a> </p> 
+                                     <p>Hai gia un account? <a id="linkReg" href="login.jsp">Accedi</a> </p> 
                                     </div>
                                 </form>
                             </div>
@@ -233,7 +239,7 @@
             <!-- Content -->
             <h6 class="text-uppercase font-weight-bold">CHI SIAMO</h6>
             <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-            <p>Salve,siamo tre ragazzi appassionati di Informatica e studenti del Dipartimento di Informatica di UNISA (unico dipartimento in area Informatica del Sud Italia). Abbiamo sviluppo questo sito con lo scopo di fornire ai nostri clienti un modo comodo di conoscere attività e gustare i loro cibi in base ad un sistema di recensioni e valutazioni su queste ultime.</p>
+            <p>Salve,siamo quattro ragazzi appassionati di Informatica e studenti del Dipartimento di Informatica di UNISA. Abbiamo sviluppato questo sito con lo scopo di fornire ai nostri clienti un modo comodo di conoscere attività e gustare i loro cibi in base ad un sistema di recensioni e valutazioni su queste ultime.</p>
   
           </div>
           <!-- Grid column -->
