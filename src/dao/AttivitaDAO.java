@@ -210,4 +210,39 @@ public class AttivitaDAO {
 	}
 	
 	
+	public synchronized float doRetrieveByMediaVal(int idAttivita){
+		 
+		 Connection conn = null;
+		 PreparedStatement ps = null;
+		 try {
+			 float result;
+			conn = DriverManagerConnectionPool.getConnection();
+			ps = conn.
+					prepareStatement("SELECT AVG(valutazione) FROM wheredoieat.recensione WHERE attivitaIDAttivita = ?");
+			ps.setInt(1, idAttivita);
+					
+			ResultSet res = ps.executeQuery();
+
+			// 4. Prendi il risultato
+			if(res.next())
+			{   
+				result=res.getFloat("AVG(valutazione)");
+				return result;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DriverManagerConnectionPool.releaseConnection(conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	 }
+	
 }

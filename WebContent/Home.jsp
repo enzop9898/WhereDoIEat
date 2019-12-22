@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%@ page import="bean.*"  import="dao.*" %>
+<%@ page import="bean.*"  import="dao.*" import="java.util.*" import="server.CalcoloMedia" %>
 
 <!DOCTYPE html>
 <html lang="it">
@@ -152,14 +152,74 @@
       </div>
     </div>
   </div> 
-
-
-
-
-   <div id="spaziohome"> <br><br> </div>
+<% 
+     AttivitaDAO adao=new AttivitaDAO();
+     ArrayList<AttivitaBean> attList=new ArrayList<AttivitaBean>();
+     AttivitaBean a=new AttivitaBean();
+     attList=adao.doRetrieveAll();
+    
+     float res;
+     ArrayList<CalcoloMedia> cmList=new ArrayList<CalcoloMedia>();
+     for(int x=0; x<attList.size();x++) {
+    	 a=attList.get(x);
+    	 res=adao.doRetrieveByMediaVal(a.getIdAttivita());
+    	 CalcoloMedia cm=new CalcoloMedia();
+    	 cm.setId(a.getIdAttivita());
+    	 cm.setMedia(res);
+    	 cmList.add(cm);
+     }
+     float x1,y1;
+     ArrayList<CalcoloMedia> tempList=new ArrayList<CalcoloMedia>();
+     for(int y=0;y<cmList.size();y++) {
+    	 y1=cmList.get(y).getMedia();
+    	for(int x=y+1;x<cmList.size();x++) {
+    		x1=cmList.get(x).getMedia();
+    		if(y1<x1) {
+    			tempList.add(cmList.get(y));
+    			cmList.add(y, cmList.get(x));
+    			cmList.remove(y+1);
+    			cmList.remove(x);
+    			cmList.add(x, tempList.get(0));
+    			tempList.clear();
+    		} 
+    	}
+     }
+     CalcoloMedia cm=new CalcoloMedia();
+     FotoDAO fdao= new FotoDAO();
+     ArrayList<FotoBean> fList=new ArrayList<FotoBean>();
+     fList=fdao.doRetrieveGroupby();
+     String url="";
+     %>
+     <br>
+     <div id="consigliatiDiv">
+     <h3 id="consigliati">Consigliati per te!</h3>
+     <%
+     for(int x=0; x<10 && x<cmList.size(); x++) {
+    	 cm.setId(cmList.get(x).getId());
+    	 cm.setMedia(cmList.get(x).getMedia());   
+    	 a=adao.doRetrieveByKey(cm.getId());
+         for(int i=0;i<fList.size();i++) {
+        	 if(fList.get(i).getAttivitaIDAttivita()==a.getIdAttivita()) {
+        		 url=fList.get(i).getFoto();
+        	 }
+         }
+    	 %>
+     <a href="ServletSingoloLocale" id="singoloConsigliato">
+     <div  >
+     
+     <h5 ><%=a.getNome() %></h5>
+     <img id="fotoCons" src="<%=url%>" height=100px width=100px>
+     <h6>Valutazione:  <%= cm.getMedia() %>/5</h6>
+         
+        
+     
+   </div></a>
+<%} %>
+ </div>
+   <div id="spaziohome"> <br><br><br> <br><br> </div>
          
          <!-- Footer -->
-  <footer class="page-footer font-small unique-color-dark">
+  <footer id="abbassa" class="page-footer font-small unique-color-dark">
       <div style="background-color: #000000;">
         <div class="container">
   

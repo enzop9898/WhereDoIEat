@@ -169,5 +169,40 @@ public class FotoDAO {
 		return f;
 	}
 	
+	public synchronized ArrayList<FotoBean> doRetrieveGroupby() throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<FotoBean> f = new ArrayList<FotoBean>();
+
+		String selectSQL = "SELECT * FROM foto GROUP BY attivitaIDattivita;";
+		
+		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				FotoBean bean = new FotoBean();
+				bean.setFoto(rs.getString("foto"));
+				bean.setAttivitaIDAttivita(rs.getInt("attivitaIDattivita"));
+				f.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return f;
+	}
+	
 	
 }

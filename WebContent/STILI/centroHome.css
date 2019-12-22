@@ -1,4 +1,27 @@
 /*CENTRO*/
+
+#consigliatiDiv {
+	text-align: center;
+}
+
+#abbassa{
+	margin-top:100px;
+}
+
+#fotoCons{
+	border-radius:50px;
+}
+
+#singoloConsigliato {
+	float:left;
+	margin-left:40px;
+	color:black;
+	
+}
+
+#consigliati {
+	text-align: center;
+}
 *.welcome {
 	font-size: 30px;
 	text-align: center;
