@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bean.AttivitaBean;
-import bean.PersonaBean;
 import server.DriverManagerConnectionPool;
 
 public class AttivitaDAO {
