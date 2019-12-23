@@ -30,7 +30,7 @@
       </a>
   </div>
               
-              <%
+              <% 
                  PersonaBean p= new PersonaBean();
                  p=(PersonaBean) request.getSession().getAttribute("cliente");
                  if (p!=null) {
