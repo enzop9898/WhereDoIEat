@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@ page import="dao.*"  import="bean.*" %>
+ <%@ page import="dao.*"  import="bean.*" import="java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="STILI/header.css">
    <link rel="stylesheet" href="STILI/footer.css">
+    <link rel="stylesheet" href="STILI/centroAttivita.css">
 
   <script src="footer.js"></script> 
 </head>
@@ -90,12 +91,40 @@
 <% 
    AttivitaBean a=new AttivitaBean();
    a=(AttivitaBean)request.getAttribute("singolaAttivita");
+   FotoDAO fdao= new FotoDAO();
+   ArrayList<FotoBean> fList=new ArrayList<FotoBean>();
+   fList=fdao.doRetrieveGroupby();
+   String url="";
    if(a!=null) {
+	   for(int i=0;i<fList.size();i++) {
+	     if(fList.get(i).getAttivitaIDAttivita()==a.getIdAttivita()) {
+  		    url=fList.get(i).getFoto();
+  	     }
+	   }
 	   
 %>
+  <div id="attivita">
   <h1><%=a.getNome() %></h1>
-<%} %>
+  <img id="fotoCons" src="<%=url%>" height=300px width=300px>
+  <p>ORARIO: <%=a.getOraApertura() %>h - <%=a.getOraChiusura() %>h</p>
+  <p>Il giorno di chiusura di questo locale &egrave : <%=a.getGiornoChiusura() %></p>
+  <iframe id="frameMaps" src="<%=a.getMappa() %>" width="400" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+  <div id="fotoLocaleDiv">
+  <%
+    fList.clear();
+    fList=fdao.doRetrieveByAttivita(a.getIdAttivita());
+    for(int i=0;i<fList.size();i++) {
+    	FotoBean f1=new FotoBean();
+    	f1=fList.get(i);
+  %>
+  <img src="<%=f1.getFoto() %>" width=80px height=80px id="fotoLocale">
+ 
+  
+<%}%>
+ </div>
 
+ <%} %>
+</div>
 
 <div id="spaziohome"> <br><br><br> <br><br> </div>
          

@@ -1,0 +1,18 @@
+@charset "ISO-8859-1";
+#fotoLocale {
+	float:left;
+}
+
+#frameMaps{
+	margin-top:30px;
+}
+
+#attivita{
+	text-align: center;
+	margin-top:50px;
+}
+
+#fotoCons{
+	margin-top:20px;
+	border-radius:150px;
+}

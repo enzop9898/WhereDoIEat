@@ -204,5 +204,44 @@ public class FotoDAO {
 		return f;
 	}
 	
+	public synchronized ArrayList<FotoBean> doRetrieveByAttivita(int id){
+		 
+		 Connection conn = null;
+		 PreparedStatement ps = null;
+		 try {
+			ArrayList<FotoBean> fList=new ArrayList<FotoBean>();
+			conn = DriverManagerConnectionPool.getConnection();
+			ps = conn.
+					prepareStatement("SELECT * FROM wheredoieat.foto WHERE attivitaIDAttivita = ?");
+			ps.setInt(1, id);
+					
+			ResultSet res = ps.executeQuery();
+
+			// 4. Prendi il risultato
+			while(res.next())
+			{
+				FotoBean f = new FotoBean();
+				f.setFoto(res.getString("foto"));
+				f.setAttivitaIDAttivita(res.getInt("attivitaIDattivita"));
+		
+				fList.add(f);
+			}
+			return fList;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				ps.close();
+				DriverManagerConnectionPool.releaseConnection(conn);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	 }
+	
 	
 }
