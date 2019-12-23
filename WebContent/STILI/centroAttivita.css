@@ -1,6 +1,21 @@
 @charset "ISO-8859-1";
+#separazione{
+	clear:left;
+}
+
+#piattiLocale {
+	margin-top:50px;
+}
+
+#fotoLocaleDiv {
+	margin-top: 25px;
+	margin-left:30px;
+	text-align:center;
+}
+
 #fotoLocale {
 	float:left;
+	margin-right:10px;
 }
 
 #frameMaps{

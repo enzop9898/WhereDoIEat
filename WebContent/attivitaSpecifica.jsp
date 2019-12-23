@@ -110,6 +110,7 @@
   <p>Il giorno di chiusura di questo locale &egrave : <%=a.getGiornoChiusura() %></p>
   <iframe id="frameMaps" src="<%=a.getMappa() %>" width="400" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
   <div id="fotoLocaleDiv">
+  <h4>Le foto del locale</h4>
   <%
     fList.clear();
     fList=fdao.doRetrieveByAttivita(a.getIdAttivita());
@@ -117,16 +118,36 @@
     	FotoBean f1=new FotoBean();
     	f1=fList.get(i);
   %>
-  <img src="<%=f1.getFoto() %>" width=80px height=80px id="fotoLocale">
+  <img src="<%=f1.getFoto() %>" width=130px height=130px id="fotoLocale">
  
   
-<%}%>
+ <%} %>
  </div>
 
+<br>
+<div id="separazione"></div>
+<div id="piattiLocale">
+<h4 id="titoloPiatti">I piatti Consigliati del locale</h4>
+<%
+  
+   PiattiDAO piattodao=new PiattiDAO();
+   ArrayList<PiattiBean> pList=new ArrayList<PiattiBean>();
+   pList=piattodao.doRetrieveByAttivita(a.getIdAttivita());
+   for(int i=0;i<pList.size();i++) {
+	   PiattiBean piatto= new PiattiBean();
+	   piatto=pList.get(i);
+%>
+<div>
+  <p> <%=piatto.getPiatto() %>: <%=piatto.getDescrizione() %> </p>
+</div>
+
+<%} %>
+</div>
+ 
  <%} %>
 </div>
 
-<div id="spaziohome"> <br><br><br> <br><br> </div>
+<div id="spaziohome"><br><br><br> <br><br><br> <br><br> </div>
          
          <!-- Footer -->
   <footer id="abbassa" class="page-footer font-small unique-color-dark">
