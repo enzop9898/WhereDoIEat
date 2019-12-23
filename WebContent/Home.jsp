@@ -3,7 +3,7 @@
     
 <%@ page import="bean.*"  import="dao.*" import="java.util.*" import="server.CalcoloMedia" %>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="it">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 
