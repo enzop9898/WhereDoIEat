@@ -104,13 +104,16 @@
 	   
 %>
   <div id="attivita">
-  <h1><%=a.getNome() %></h1>
-  <img id="fotoCons" src="<%=url%>" height=300px width=300px>
-  <p>ORARIO: <%=a.getOraApertura() %>h - <%=a.getOraChiusura() %>h</p>
-  <p>Il giorno di chiusura di questo locale &egrave : <%=a.getGiornoChiusura() %></p>
-  <iframe id="frameMaps" src="<%=a.getMappa() %>" width="400" height="250" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+  <h1 id="nomeAtt"><%=a.getNome() %></h1>
+  <img id="fotoCons" src="<%=url%>" height=300px width=300px><br>
+  <div id="chiusure">
+  <p id="orario">ORARIO: <%=a.getOraApertura() %>h - <%=a.getOraChiusura()%>h</p>
+  <p id="giornoChiusura">Il giorno di chiusura di questo locale &egrave : <%=a.getGiornoChiusura() %></p>
+  </div>
+  <h4 id="mappa">Come raggiungere il locale:</h4>
+  <iframe id="frameMaps" src="<%=a.getMappa() %>" width="400" height="250" frameborder="0" style="border:0;"></iframe>
   <div id="fotoLocaleDiv">
-  <h4>Le foto del locale</h4>
+  <h4 id="fotoTitolo">Le foto del locale</h4>
   <%
     fList.clear();
     fList=fdao.doRetrieveByAttivita(a.getIdAttivita());
@@ -120,9 +123,9 @@
   %>
   <img src="<%=f1.getFoto() %>" width=130px height=130px id="fotoLocale">
  
-  
+   
  <%} %>
- </div>
+</div>
 
 <br>
 <div id="separazione"></div>
@@ -147,7 +150,7 @@
  <%} %>
 </div>
 
-<div id="spaziohome"><br><br><br> <br><br><br> <br><br> </div>
+<div id="spaziohome"><br><br><br><br><br><br><br><br> <br><br><br> <br><br> </div>
          
          <!-- Footer -->
   <footer id="abbassa" class="page-footer font-small unique-color-dark">
