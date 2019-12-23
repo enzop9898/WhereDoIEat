@@ -43,7 +43,7 @@
               <a id="collegamento" href="registrazione.jsp" class="nav-link">Registrati ora</a>  
           <%} %>    
           
-</nav>
+</nav> 
 
      
 
