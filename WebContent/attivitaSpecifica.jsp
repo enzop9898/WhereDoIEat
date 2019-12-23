@@ -117,7 +117,15 @@
   <%
     fList.clear();
     fList=fdao.doRetrieveByAttivita(a.getIdAttivita());
+    int cont=0; //serve per far andare a capo le foto ogni 4
     for(int i=0;i<fList.size();i++) {
+        cont++;
+        if(cont>4) {
+        	%>
+        	<div id="separaFoto"></div>
+        	<%
+        cont=0;	 
+        }
     	FotoBean f1=new FotoBean();
     	f1=fList.get(i);
   %>
