@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>wheredoieat</title>
 <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WhereDoIEat</title>
@@ -18,8 +17,15 @@
 <body>
 <%@ include file="header.jsp"%>
 
-
-
+<div id="suggerimenti">
+<%
+   Boolean done=(Boolean) request.getAttribute("done");
+   if(done!=null) {
+%>
+   <h5>Suggerimento effettuato con successo</h5>	   
+<%
+   }
+%>
 <div id="effettuaSug" >
    <form action="ServletSuggerimenti" method="post" name="suggerimenti">
        <input type="text" placeholder="Titolo" name="titolo" size="50">
@@ -31,7 +37,34 @@
 
 </div>
 
+<div id="visualizzaSug">
 
+   <% 
+      ArrayList<SuggerimentiBean> sList=new ArrayList<SuggerimentiBean> ();
+      SuggerimentiDAO sdao=new SuggerimentiDAO();
+      sList=sdao.doRetrieveAll();
+      if(sList.size()>0) {
+    	  for(int i=0; i<sList.size();i++) {
+    		  SuggerimentiBean s=new SuggerimentiBean();
+        	  s=sList.get(i);
+    	  %>
+    	    <h6><%=s.getTitolo() %></h6>
+    	    <p><%=s.getTesto() %></p>
+    	  <%
+    	  }
+      } else {
+    	  %>
+    	  <h4>Non hai effettuato ancora nessun suggerimento</h4>
+    	  
+    	  <%
+      }
+    	  
+   %>
+
+</div>
+
+
+</div>
 
 
 

@@ -17,7 +17,7 @@ public class AttivitaDAO {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "insert into attivita" 
-				+ " (idAttivita, nome, comune, oraApertura, oraChiusura, giornoChiusura, indirizzo, telefono, numPosti, mappa, personaUsername) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ " (nome, comune, oraApertura, oraChiusura, giornoChiusura, indirizzo, telefono, numPosti, mappa, personaUsername) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();

@@ -17,15 +17,14 @@ public class SuggerimentiDAO {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "insert into suggerimenti" 
-				+ " (id, titolo, testo, personaUsername) values (?, ?, ?, ?)";
+				+ " (titolo, testo, personaUsername) values (?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, s.getId());
-			preparedStatement.setString(2, s.getTitolo());
-			preparedStatement.setString(3, s.getTesto());
-			preparedStatement.setString(4, s.getPersonaUsername());
+			preparedStatement.setString(1, s.getTitolo());
+			preparedStatement.setString(2, s.getTesto());
+			preparedStatement.setString(3, s.getPersonaUsername());
 
 			preparedStatement.executeUpdate();
 

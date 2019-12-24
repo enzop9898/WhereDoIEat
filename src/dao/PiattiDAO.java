@@ -19,15 +19,14 @@ public class PiattiDAO {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "insert into piatti" 
-				+ " (idPiatto, piatto, descrizione, attivitaIDAttivita) values (?, ?, ?, ?)";
+				+ " (piatto, descrizione, attivitaIDAttivita) values (?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, p.getIdPiatto());
-			preparedStatement.setString(2, p.getPiatto());
-			preparedStatement.setString(3, p.getDescrizione());
-			preparedStatement.setInt(4, p.getAttivitaIDAttivita());
+			preparedStatement.setString(1, p.getPiatto());
+			preparedStatement.setString(2, p.getDescrizione());
+			preparedStatement.setInt(3, p.getAttivitaIDAttivita());
 			preparedStatement.executeUpdate();
 
 			connection.commit();
