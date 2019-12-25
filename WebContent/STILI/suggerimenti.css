@@ -1,0 +1,36 @@
+@charset "ISO-8859-1";
+@charset "UTF-8";
+
+#suggerimenti{
+	position:relative;
+	top: 20px;
+	width:100%;
+	
+}
+
+#effettuaSug{
+	float:left;
+	width:50%;
+	text-align:center;
+}
+
+#visualizzaSug{
+	width:50%;
+	text-align:center;
+	position: relative;
+	left:50%;
+	border-left-color:grey;
+	border-left-style:solid;
+	height: 500px;
+	
+}
+
+#titolo{
+	position:relative;
+	left:-22%;
+	
+}
+
+#descrizione {
+	height:100px;
+}

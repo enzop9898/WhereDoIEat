@@ -10,7 +10,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WhereDoIEat</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-
   <link rel="stylesheet" href="STILI/suggerimenti.css">
 
 </head>
@@ -28,8 +27,8 @@
 %>
 <div id="effettuaSug" >
    <form action="ServletSuggerimenti" method="post" name="suggerimenti">
-       <input type="text" placeholder="Titolo" name="titolo" size="50">
-       <input type="text" placeholder="Descrizione del problema"  size="100" name="descrizione">
+       <input type="text" placeholder="Titolo" name="titolo" size="30" id="titolo">
+       <input type="text" placeholder="Descrizione del problema"  size="60" name="descrizione" id="descrizione">
        <button type="submit">Invia</button>
    </form>
    
