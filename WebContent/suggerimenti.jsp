@@ -17,19 +17,23 @@
 <%@ include file="header.jsp"%>
 
 <div id="suggerimenti">
+<h4 id="helpUs">Aiutaci a migliorare il nostro sito!</h4>
 <%
    Boolean done=(Boolean) request.getAttribute("done");
    if(done!=null) {
 %>
-   <h5>Suggerimento effettuato con successo</h5>	   
+   <h5 id="done">Suggerimento effettuato con successo</h5>	   
 <%
    }
 %>
-<div id="effettuaSug" >
-   <form action="ServletSuggerimenti" method="post" name="suggerimenti">
-       <input type="text" placeholder="Titolo" name="titolo" size="30" id="titolo">
-       <input type="text" placeholder="Descrizione del problema"  size="60" name="descrizione" id="descrizione">
-       <button type="submit">Invia</button>
+<div id="effettuaSug" >  
+<script src="controlliSug.js"></script> 
+   <form action="ServletSuggerimenti" method="post" name="suggerimenti" id="formSug" onsubmit="return control(this)">
+       <input type="text" placeholder="Titolo" name="titolo" size="30" id="titolo" onclick="startTitolo()" onkeyup="startTitolo()">
+       <p id="errorTitolo"></p>
+       <textarea placeholder="Descrizione del problema"  cols="60" rows="10" name="descrizione" id="descrizione" onclick="startDescrizione()" onkeyup="startDescrizione()"></textarea>
+       <p id="errorDescrizione"></p>
+       <button type="submit" id="buttonSug">Invia</button>
    </form>
    
 
