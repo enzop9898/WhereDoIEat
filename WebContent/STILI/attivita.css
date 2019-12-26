@@ -26,6 +26,23 @@
     padding: 6px;
 }
 
+
+.carta1 {         /*card dove sta scritto login*/
+    color: white;
+    background-color: black;
+    font-weight: bold;
+}
+
+.BORDONERO{   
+    border-color: black;
+    border-width: 3px;
+}
+
+.BORDOGRIGIO{   
+    border-color: black;
+    border-width: 3px;
+}
+
 #sal{
    background-color: rgb(226, 12, 12);
    padding: 6px;
