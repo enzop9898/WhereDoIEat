@@ -8,6 +8,12 @@
 <title>WhereDoIEat</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="STILI/attivita.css">
+    <script>
+    function visualizza(foto){
+	    var st = foto.src;
+        $('#galleryImage').attr("src",st.replace("70x70","500x300"));
+    }
+    </script> 
 </head>
 <body>
  
@@ -42,6 +48,12 @@
           <div id="muu">
           <img src="<%=url%>" class="img-fluid" alt="">
           </div>
+          <form action="" method="get">
+              <br>              
+              <div class="d-flex justify-content-left">
+                 <button type="submit" class="btn btn-dark btn-lg float-right pren">Prenota ora</button>
+              </div>
+            </form>
         </div>
         <!--Grid column-->
 
@@ -81,20 +93,6 @@
             <h4 id="mappa">Come raggiungere il locale:</h4>
             <iframe id="frameMaps" src="<%=a.getMappa() %>" width="400" height="250" frameborder="0" style="border:0;"></iframe>
             <br>
-              <form action="" method="get">
-              <br>              
-              <br>
-              <div class="d-flex justify-content-left">
-              <button type="submit" class="btn btn-danger" id="carrell">Prenota  &nbsp&nbsp</button>
-              </div>
-            </form>
-            <form action="" method="get" onsubmit="">
-              <br>              
-              <br>
-              <div class="d-flex justify-content-left">
-              <button type="submit" class="btn btn-danger" id="carrell">Effettua recensione  &nbsp&nbsp</button>
-              </div>
-            </form>
           </div>
           <!--Content-->
 
@@ -103,32 +101,79 @@
 
       </div>
       <!--Grid row-->
-
-      <hr>
-
       
-       <div id="fotoLocaleDiv">
-  <h4 id="fotoTitolo">Le foto del locale</h4>
   <%
     fList.clear();
-    fList=fdao.doRetrieveByAttivita(a.getIdAttivita());
-    int cont=0; //serve per far andare a capo le foto ogni 4
-    for(int i=0;i<fList.size();i++) {
-        cont++;
-        if(cont>4) {
-        	%>
-        	<div id="separaFoto"></div>
-        	<%
-        cont=0;	 
-        }
-    	FotoBean f1=new FotoBean();
-    	f1=fList.get(i);
-  %>
-  <img id="fot" src="<%=f1.getFoto() %>" width=130px height=130px id="fotoLocale">
- 
-   
- <%} }%>
+    fList=fdao.doRetrieveByAttivita(a.getIdAttivita());%>
+
+
+<div class="container py-3 px-0">
 </div>
+<div class="container bg-dark py-4 mb-4 min-vh-50 shadow shadow-lg">
+    <div class="row">
+        <div class="col-12 text-white gallery">
+            <div class="row">
+                
+                <!-- timeline item 1 left dot -->
+                <div class="col-auto text-center flex-column d-none ">
+                    <div class="row h-50">
+                        <div class="col">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                    <h5 class="m-0">
+                        <span class="badge badge-pill border border-secondary">&nbsp;</span>
+                    </h5>
+                    <div class="row h-50">
+                        <div class="col border-right border-secondary">&nbsp;</div>
+                        <div class="col">&nbsp;</div>
+                    </div>
+                </div>
+                <!-- timeline item 1 event content -->
+                <div class="col py-2">
+                    <div class="card bg-transparent border-0 text-light">
+                        <div class="card-body">
+                            <div class="float-right text-muted"><i class="fa fa-check"></i></div>
+                            <p class="card-title text-uppercase">Le foto del locale</p>
+                            <div class="row no-gutters">
+                            <%for(int i=0;i<fList.size();i++) {
+    							FotoBean f1=new FotoBean();
+    							f1=fList.get(i);
+  							%>
+                                <div class="col-2 col-sm-auto">
+                                    <a href data-toggle="modal" data-target="#galleryModal"><img src="<%=f1.getFoto() %>"width=100px height=100px class="mb-2 mr-2 img-fluid" onclick = "javascript: visualizza(this)" /></a>
+                                </div>
+                            <%} }%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="galleryModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark">
+            <div class="modal-header border-0">
+                <h5 class="font-weight-light text-white mb-0" id="galleryTitle"></h5>
+                <button type="button" class="close float-right text-dark" aria-label="Close" data-dismiss="modal">
+                  <span aria-hidden="true">&#xD7;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0 text-center bg-alt">
+                <img src="//placehold.it/1200x700/222?text=..." id="galleryImage" class="loaded-image mx-auto img-fluid">
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-outline-light" data-dismiss="modal" aria-hidden="true">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
 <div id="spaziohome"><br><br><br><br><br></div>
