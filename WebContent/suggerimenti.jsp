@@ -39,9 +39,10 @@
 
 
 </div>
-
+<script src="visualizzaSug.js"></script>
 <div id="visualizzaSug">
-
+   <div id="coglione"></div>
+   <h4 id="titoloSuggFatti">Suggerimenti che hai gia' effettuato:</h4>
    <% 
       ArrayList<SuggerimentiBean> sList=new ArrayList<SuggerimentiBean> ();
       SuggerimentiDAO sdao=new SuggerimentiDAO();
@@ -50,9 +51,15 @@
     	  for(int i=0; i<sList.size();i++) {
     		  SuggerimentiBean s=new SuggerimentiBean();
         	  s=sList.get(i);
-    	  %>
-    	    <h6><%=s.getTitolo() %></h6>
-    	    <p><%=s.getTesto() %></p>
+    	  %><div id="contenitoreSugg<%=s.getId()%>" class="contenitoreSugg">
+    	    <div id="titoloEfoto">
+    	    <h6 class="visualizzazione" id="visualizzaTitolo"><%=s.getTitolo() %></h6>
+    	    <img class="frecce" src="foto/frecceinbasso.png" width="20px" height="20px" id="<%=s.getId()%>" onclick="visualizza(this)">
+    	    </div>
+    	    <div id="descrizioneDiv">
+    	    <p class="visualizzaDesc" id="visualizzaDesc<%=s.getId()%>" style="display:none"><%=s.getTesto() %></p>
+    	    </div>
+    	    </div>
     	  <%
     	  }
       } else {
