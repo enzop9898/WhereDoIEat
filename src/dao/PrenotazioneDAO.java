@@ -17,17 +17,16 @@ public class PrenotazioneDAO {
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "insert into prenotazione" 
-				+ " (id, data, ora, numPosti, personaUsername, attivitaIDAttivita) values (?, ?, ?, ?, ?, ?)";
+				+ " (data, ora, numPosti, personaUsername, attivitaIDAttivita) values (?, ?, ?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, p.getIdPren());
-			preparedStatement.setString(2, p.getData());
-			preparedStatement.setInt(3, p.getOra());
-			preparedStatement.setInt(4, p.getNumPosti());
-			preparedStatement.setString(5, p.getPersonaUsername());
-			preparedStatement.setInt(6, p.getAttivitaIDAttivita());
+			preparedStatement.setString(1, p.getData());
+			preparedStatement.setInt(2, p.getOra());
+			preparedStatement.setInt(3, p.getNumPosti());
+			preparedStatement.setString(4, p.getPersonaUsername());
+			preparedStatement.setInt(5, p.getAttivitaIDAttivita());
 			preparedStatement.executeUpdate();
 
 			connection.commit();
@@ -186,5 +185,38 @@ public class PrenotazioneDAO {
 		return p;
 	}
 	
+	public synchronized int doRetrieveByOra(int ora,int id, String data) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+        int ris = 0;
+		ArrayList<PrenotazioneBean> p = new ArrayList<PrenotazioneBean>();
+
+		String selectSQL = "SELECT sum(numPosti) FROM prenotazione WHERE ora= ? AND attivitaIDAttivita= ? AND data= ?";
+		
+		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setInt(1, ora);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, data);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			if (rs.next()) {
+	            ris=rs.getInt("sum(numPosti)");
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return ris;
+	}
 	
 }

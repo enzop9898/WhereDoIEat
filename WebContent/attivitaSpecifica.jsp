@@ -8,6 +8,7 @@
 <title>WhereDoIEat</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="STILI/centroAttivita.css">
+    <link rel="stylesheet" href="STILI/attivitaSpecifica.css">
 
 </head>
 <body>
@@ -16,7 +17,33 @@
 
 <%@ include file="header.jsp"%>
 
-
+  <script src="formPrenota.js"></script>
+  <%
+    PersonaBean p2=new PersonaBean();
+    p2=(PersonaBean)request.getSession().getAttribute("cliente");
+    if(p2!=null) {
+  %>
+ <button name="prenota" onClick="prenota()">prenota</button>
+ <% } else {%>
+ <p>Per poter prenotare devi prima effettuare il <a href="login.jsp">login</a></p> 
+ <%}
+              Boolean giornoChiusura=(Boolean)request.getAttribute("giornoChiusura");
+             if(giornoChiusura!=null) {
+            %>
+            <p>Ci dispiace, ma il giorno selezionato è il nostro giorno di chiusura</p>
+         <%} 
+           Boolean postiNonDisp=(Boolean)request.getAttribute("postiNonDisp");
+           if(postiNonDisp!=null) {
+         %>
+         <p>Nella data e nell'ora inserita non ci sono sufficienti posti a disposizione.</p>
+          
+         <%} 
+           Boolean ok=(Boolean) request.getAttribute("ok");
+           if(ok!=null) {
+        	   
+         %>
+           <p>Prenotazione Effettuata con successo. Trovi la tua prenotazione nella tua area personale.</p>
+         <%} %>
 <% 
    AttivitaBean a=new AttivitaBean();
    a=(AttivitaBean)request.getAttribute("singolaAttivita");
@@ -32,13 +59,15 @@
 	   }
 	   
 %>
-  <div id="attivita">
+  <div id="attivita" onClick="chiudiDiv()">
   <h1 id="nomeAtt"><%=a.getNome() %></h1>
   <img id="fotoCons" src="<%=url%>" height=300px width=300px><br>
   <div id="chiusure">
   <p id="orario">ORARIO: <%=a.getOraApertura() %>h - <%=a.getOraChiusura()%>h</p>
   <p id="giornoChiusura">Il giorno di chiusura di questo locale &egrave : <%=a.getGiornoChiusura() %></p>
   </div>
+
+ 
   <h4 id="mappa">Come raggiungere il locale:</h4>
   <iframe id="frameMaps" src="<%=a.getMappa() %>" width="400" height="250" frameborder="0" style="border:0;"></iframe>
   <div id="fotoLocaleDiv">
@@ -85,6 +114,37 @@
 </div>
  
  <%} %>
+</div>
+
+<div id="prenotazione">
+   <h4 id="titoloPren">Inserisci i dati per la prenotazione</h4>
+   <img src="foto/x.png" id="chiudiDiv" onMouseOver="effettoX()" onMouseOut="effettoXEsce()" onClick="chiudiDiv()">
+   <div>
+      <form action="ServletPrenotazione?id=<%=a.getIdAttivita() %>" method="post" name="prenotazione" id="formPren">
+         <fieldset id="data" onMouseOver="effettoData()" onMouseOut="effettoDataEsce()">
+            <legend id="legendData">Data</legend>
+            <input type="date" name="data">
+         </fieldset>
+         <fieldset id="ora" onMouseOver="effettoOra()" onMouseOut="effettoOraEsce()">
+            <legend id="legendOra">Ora</legend>
+            <%
+             for(int x=a.getOraApertura();x<a.getOraChiusura();x++) {
+            %>
+            <div class="oraRadio">
+               <input type="radio" name="ora" value="<%=x%>00"><p><%=x %>:00</p>
+            </div>
+            <div class="oraRadio">
+               <input type="radio" name="ora" value="<%=x %>30"><p><%=x %>:30</p>
+            </div>
+        <%} %>
+         </fieldset>
+         <fieldset id="posti" onMouseOver="effettoPosti()" onMouseOut="effettoPostiEsce()">
+            <legend id="legendPosti">Posti</legend>
+            <input type="number" name="posti" min="1" max="<%=a.getNumPosti() %>" value="1" id="numberPosti">
+         </fieldset>
+         <input type="submit" name="conferma" value="Prenota" id="buttonPrenota" onMouseOver="confermaPren()" onMouseOut="confermaPrenEsce()">
+      </form> 
+   </div>
 </div>
 
 <div id="spaziohome"><br><br><br><br><br><br><br><br> <br><br><br> <br><br> </div>
