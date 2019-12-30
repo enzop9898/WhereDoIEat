@@ -19,8 +19,7 @@
  
 <%@ include file="header.jsp"%>
 
-<% 
-   AttivitaBean a=new AttivitaBean();
+<% AttivitaBean a=new AttivitaBean();
    a=(AttivitaBean)request.getAttribute("singolaAttivita");
    FotoDAO fdao= new FotoDAO();
    ArrayList<FotoBean> fList=new ArrayList<FotoBean>();
@@ -174,15 +173,20 @@
 
 <br><br>
 
-
-
+<% if(p.getTipo()==1){
+ %>
+<% Boolean recFatta = (Boolean) request.getAttribute("recensioneFatta");
+   if(recFatta!=null && recFatta){%>	
+         <p>recensione effettuata con successo<p> 
+ <%}
+   else{%>
 <div class="container">
     <div class="card">
         <div class="card-header carta1">
             LASCIA QUI LA TUA RECENSIONE...
         </div>
         <div class="card-body">
-            <form>
+            <form action="RecensioneControl" method="post">
                 <div class="form-row">
                     <div class="c4l-rating">
                     <label for="inputEmail">Valutazione:</label>
@@ -193,7 +197,7 @@
     <input name="c4l-rating" type="radio" id="c4l-rate2" value="2" />
     <label for="c4l-rate2"></label>
  
-    <input name="c4l-rating" type="radio" id="c4l-rate3" value="3" />
+    <input name="c4l-rating" type="radio" id="c4l-rate3" value="3" checked />
     <label for="c4l-rate3"></label>
  
     <input name="c4l-rating" type="radio" id="c4l-rate4" value="4" />
@@ -206,8 +210,9 @@
                 <br><br>
                 <div class="form-group">
                     <label for="inputMessage">Commento:</label>
-                    <textarea class="form-control BORDONERO" rows="5" id="inputMessage"></textarea>
+                    <textarea name="commento" class="form-control BORDONERO" rows="5" id="inputMessage"></textarea>
                 </div><br>
+                <input type="hidden" name="attivita" value="<%=a.getIdAttivita()%>">
                     <button type="submit" class="btn btn-dark btn-lg float-left pren">Conferma</button>
                 <br>
            
@@ -217,6 +222,7 @@
     </div>
 
 </div>
+<%}} %>
 <%RecensioneDAO rdao= new RecensioneDAO();
 ArrayList<RecensioneBean> rList=new ArrayList<RecensioneBean>();
 rList=rdao.doRetrieveAll(a.getIdAttivita());%>

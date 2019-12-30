@@ -186,3 +186,7 @@
     transition-duration: .2s;
     border-radius: 2px;
 }
+
+#errore{
+	color: rgb(173, 14, 14);
+}

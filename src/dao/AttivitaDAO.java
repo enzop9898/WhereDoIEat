@@ -13,41 +13,42 @@ public class AttivitaDAO {
 	
 	public synchronized void doSave(AttivitaBean a) throws SQLException {
 
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
 
-		String insertSQL = "insert into attivita" 
-				+ " (idAttivita, nome, comune, oraApertura, oraChiusura, giornoChiusura, indirizzo, telefono, numPosti, mappa, personaUsername) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    String insertSQL = "insert into attivita" 
+	        + " (nome, comune, oraApertura, oraChiusura, giornoChiusura, indirizzo, telefono, numPosti, mappa, personaUsername) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, a.getIdAttivita());
-			preparedStatement.setString(2, a.getNome());
-			preparedStatement.setString(3, a.getComune());
-			preparedStatement.setInt(4, a.getOraApertura());
-			preparedStatement.setInt(5, a.getOraChiusura());
-			preparedStatement.setString(6, a.getGiornoChiusura());
-			preparedStatement.setString(7, a.getIndirizzo());
-			preparedStatement.setString(8, a.getTelefono());
-			preparedStatement.setInt(9, a.getNumPosti());
-			preparedStatement.setString(10, a.getMappa());
-			preparedStatement.setString(11, a.getPersonaUsername());
-			preparedStatement.executeUpdate();
-            
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		this.doSaveSelection(a);
-		
-	}
+	    try {
+	      connection = DriverManagerConnectionPool.getConnection();
+	      preparedStatement = connection.prepareStatement(insertSQL);
+	      preparedStatement.setString(1, a.getNome());
+	      preparedStatement.setString(2, a.getComune());
+	      preparedStatement.setInt(3, a.getOraApertura());
+	      preparedStatement.setInt(4, a.getOraChiusura());
+	      preparedStatement.setString(5, a.getGiornoChiusura());
+	      preparedStatement.setString(6, a.getIndirizzo());
+	      preparedStatement.setString(7, a.getTelefono());
+	      preparedStatement.setInt(8, a.getNumPosti());
+	      preparedStatement.setString(9, a.getMappa());
+	      preparedStatement.setString(10, a.getPersonaUsername());
+	      preparedStatement.executeUpdate();
+	            
+	      connection.commit();
+	    } finally {
+	      try {
+	        if (preparedStatement != null)
+	          preparedStatement.close();
+	      } finally {
+	        if (connection != null)
+	          connection.close();
+	      }
+	    }
+	    this.doSaveSelection(a);
+	    
+	  }
+
+	
 	public void doSaveSelection(AttivitaBean a) {
 	}
 
