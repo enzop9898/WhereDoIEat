@@ -2,7 +2,6 @@ function prenota()
 {
    $("#prenotazione").css({"display":"block"});	
    $("#attivita").css({"opacity":"0.3"});
-
 }
 
 function effettoX() {

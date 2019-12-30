@@ -16,8 +16,8 @@ function controlPrenota(form) {
 	 var dataInput=new Date(anno, mese-1, giorno,ora,minuti);
 	 var diff=dataInput.getTime()- nowInput.getTime();
 	 
-	 var giornoChiusura1=$('#giornoChiusura').text();
-	 var giornoChiusura=giornoChiusura1.slice(43);
+	 var giornoChiusura1=$('#br').text();
+	 var giornoChiusura=giornoChiusura1.slice(10);
      var day;
 	 if(giornoChiusura=="Domenica") {
     	 day=0;
@@ -56,7 +56,7 @@ function controlPrenota(form) {
 	 var oraX=oraSelezionata/100;
 	 if(diff==0) {
 	 if(oraX<ora+1) {
-		 $("#errorOra").text("E' troppo tardi per prenotare a quest'orario.").css({"color":"red"});
+		 $("#errorOra").text("Non puoi piu' prenotare a quest'orario.").css({"color":"red"});
 		 return(false);
 	 }
 	 }

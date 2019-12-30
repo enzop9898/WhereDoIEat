@@ -17,7 +17,7 @@ public class FotoDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "insert into foto" 
+		String insertSQL = "insert into wheredoieat.foto" 
 				+ " (foto, attivitaIDattivita) values (?, ?)";
 
 		try {
@@ -25,6 +25,7 @@ public class FotoDAO {
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, f.getFoto());
 			preparedStatement.setInt(2, f.getAttivitaIDAttivita());
+			preparedStatement.executeUpdate();
 			connection.commit();
 		} finally {
 			try {

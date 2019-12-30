@@ -92,3 +92,9 @@ legend {
 #errorOra{
 	clear:left; 
 }
+
+#buttonPrenotazione {
+	position:absolute;
+	right:4%;
+	bottom:63%;
+}

@@ -145,21 +145,17 @@ public class RecensioneDAO {
 } 
 	}
 	
-	public synchronized ArrayList<RecensioneBean> doRetrieveAll() throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		ArrayList<RecensioneBean> r = new ArrayList<RecensioneBean>();
-
-		String selectSQL = "SELECT * FROM recensione;";
-		
-		
-
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-
-			ResultSet rs = preparedStatement.executeQuery();
+	public synchronized ArrayList<RecensioneBean> doRetrieveAll(int idAtt) throws SQLException {
+		Connection conn = null;
+		 PreparedStatement ps = null;
+		 ArrayList<RecensioneBean> r= new ArrayList<RecensioneBean>();
+		 try {
+			conn = DriverManagerConnectionPool.getConnection();
+			ps = conn.
+					prepareStatement("SELECT * FROM wheredoieat.recensione WHERE attivitaIDAttivita = ?");
+			ps.setInt(1,  idAtt);
+					
+			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 				RecensioneBean bean = new RecensioneBean();
@@ -173,15 +169,16 @@ public class RecensioneDAO {
 
 		} finally {
 			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
+				if (ps != null)
+					ps.close();
 			} finally {
-				if (connection != null)
-					connection.close();
+				if (conn != null)
+					conn.close();
 			}
 		}
 		return r;
 	}
+	
 	
 	
 }
