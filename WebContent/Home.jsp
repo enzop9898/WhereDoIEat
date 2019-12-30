@@ -28,14 +28,15 @@
          <img src="foto/final.PNG" alt="WhereDoIEat" id="logo">
       </a>
   </div>
-              <a id="collegamento2" href="faq.html" class="nav-link">Domande Frequenti</a>
+              
               <%
                  PersonaBean p= new PersonaBean();
                  p=(PersonaBean) request.getSession().getAttribute("cliente");
                  if (p!=null) {
               %>
+              <a id="collegamento2" href="faq.html" class="nav-link">Suggerimenti</a>
               <a id="collegamento" href="ServletLogout" class="nav-link">Logout</a>
-              <a id="collegamento" href="areaPersonale.jsp" class="nav-link">Area Personale</a>
+              <a id="collegamento" href="PrenotazioneControl?action=AllOrderFromUser&user=<%=p.getUsername() %>" class="nav-link">Area Personale</a>
               <% } else { %>
               <a id="collegamento" href="login.jsp" class="nav-link">Accedi</a>
      

@@ -12,8 +12,6 @@
     <title>WhereDoIEat</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="STILI/login.css">
-      <link rel="stylesheet" href="STILI/header.css">
-  <link rel="stylesheet" href="STILI/footer.css">
 </head>
 <body>
 <nav id="navbar1" class="navbar navbar-expand-lg"> 
