@@ -11,9 +11,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>UserArea</title>
+<style type="text/css">
+    #recensione { color: #ffffff; }
+    </style>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="STILI/UserArea.css">
+<link rel="stylesheet" href="STILI/registrazione.css">
 <script src="controlliCambioPassword.js"></script>
+<script src="controlli.js"></script>
 </head>
 <body>
 
@@ -36,11 +41,15 @@
 					<li class="nav-item menu">
 					<a href="PrenotazioneControl?action=AllOrderFromUser&user=<%=utq.getUsername()%>"
 						data-target="#ordini" data-toggle="tab"
-						class="nav-link menu active">Le mie Prenotazioni</a></li>
+						class="nav-link menu active">Prenotazioni Effettuate</a></li>
 					<li class="nav-item menu"><a href="" data-target="#profilo"
 						data-toggle="tab" class="nav-link menu">Info Personali</a></li>
 					<li class="nav-item menu"><a href="" data-target="#password"
 						data-toggle="tab" class="nav-link menu">Cambia Password</a></li>
+						<li class="nav-item menu"><a href="" data-target="#modifica"
+						data-toggle="tab" class="nav-link menu">Modifica Dati Personali</a></li>
+						<li class="nav-item menu"><a href="" data-target="#recensioni"
+						data-toggle="tab" class="nav-link menu">Vecchi Commenti</a></li>
 				</ul>
 				<div class="tab-content  p-b-3">
 					<div class="tab-pane" id="profilo">
@@ -59,7 +68,77 @@
 						</div>
 						<!--/row-->
 					</div>
+					<div class="tab-pane" id="recensioni">
+						<br>
+						<h4 class="m-y-2 prova"><a id="recensione" href="recensioni?user=<%=utq.getUsername()%>">Le mie Recensioni</a></h4>
+						<br>
+						<table id="tabl">
+							<tr>
+								<th>Valutazione</th>
+								<th>Commento</th>
+								<th>Locale</th>
+								<th></th>
+							</tr>
+							<%
+								ArrayList<?> recensioni = (ArrayList<?>) request.getAttribute("recensioni");
+								AttivitaDAO daor=new AttivitaDAO();
+								ArrayList<AttivitaBean> listr=new ArrayList<AttivitaBean>();
+								listr=daor.doRetrieveAll();
+								//Cart cart = (Cart) request.getAttribute("cart");  O CARRELL
+								if (recensioni != null && recensioni.size() != 0) {
+									Iterator<?> it = recensioni.iterator();
+									while (it.hasNext()) {
+							%>
+							<tr>
+								<%
+									RecensioneBean bean = (RecensioneBean) it.next();
+								%>
+								<td id="td"><%=bean.getValutazione()%></td>
+								<td id="td"><%=bean.getCommento() %></td>
+								<%String nome="";
+								for(AttivitaBean b:listr)
+										{
+										if(bean.getAttivitaIDAttivita()==b.getIdAttivita())
+											nome=b.getNome();
+										} %>
+								<td id="td"><%=nome%></td>
+							</tr>
+							<%
+									}
+								}
+							%>
+						</table>
+					</div>
+					<div class="tab-pane" id="modifica">
+						<br>
+						<h4 class="m-y-2 prova">Modifica Dati Personali</h4>
+						<br>
+						<div class="row">
+							<form action="ServletModifica" method="post">                                    
+         
+                                    <div class="form-group">
+                                        <label  class="grassetto">&nbspTelefono</label>
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="telefono" value="" id="telefono" >
+                                      
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label  class="grassetto">&nbspCitt&agrave</label>
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="citta" id="citta" value="">
+                                         <p id="errorCitta"></p>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label  class="grassetto">&nbspComune</label>
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="comune" value="" id="comune">
+                                         <p id="errorComune"></p>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger btn-lg float-right btn-mio" id="btnLogin">Conferma</button>
 
+                                </form>
+						</div>
+						<!--/row-->
+					</div>
 
 					<div class="tab-pane active" id="ordini">
 						<br>
