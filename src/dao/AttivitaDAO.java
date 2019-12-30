@@ -22,17 +22,16 @@ public class AttivitaDAO {
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, a.getIdAttivita());
-			preparedStatement.setString(2, a.getNome());
-			preparedStatement.setString(3, a.getComune());
-			preparedStatement.setInt(4, a.getOraApertura());
-			preparedStatement.setInt(5, a.getOraChiusura());
-			preparedStatement.setString(6, a.getGiornoChiusura());
-			preparedStatement.setString(7, a.getIndirizzo());
-			preparedStatement.setString(8, a.getTelefono());
-			preparedStatement.setInt(9, a.getNumPosti());
-			preparedStatement.setString(10, a.getMappa());
-			preparedStatement.setString(11, a.getPersonaUsername());
+			preparedStatement.setString(1, a.getNome());
+			preparedStatement.setString(2, a.getComune());
+			preparedStatement.setInt(3, a.getOraApertura());
+			preparedStatement.setInt(4, a.getOraChiusura());
+			preparedStatement.setString(5, a.getGiornoChiusura());
+			preparedStatement.setString(6, a.getIndirizzo());
+			preparedStatement.setString(7, a.getTelefono());
+			preparedStatement.setInt(8, a.getNumPosti());
+			preparedStatement.setString(9, a.getMappa());
+			preparedStatement.setString(10, a.getPersonaUsername());
 			preparedStatement.executeUpdate();
             
 			connection.commit();

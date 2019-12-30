@@ -18,6 +18,7 @@
 <%@ include file="header.jsp"%>
 
   <script src="formPrenota.js"></script>
+  <script src="prenotaControlForm.js"></script>
   <%
     PersonaBean p2=new PersonaBean();
     p2=(PersonaBean)request.getSession().getAttribute("cliente");
@@ -120,10 +121,11 @@
    <h4 id="titoloPren">Inserisci i dati per la prenotazione</h4>
    <img src="foto/x.png" id="chiudiDiv" onMouseOver="effettoX()" onMouseOut="effettoXEsce()" onClick="chiudiDiv()">
    <div>
-      <form action="ServletPrenotazione?id=<%=a.getIdAttivita() %>" method="post" name="prenotazione" id="formPren">
+      <form action="ServletPrenotazione?id=<%=a.getIdAttivita() %>" method="post" name="prenotazione" id="formPren" onsubmit="return controlPrenota(this)">
          <fieldset id="data" onMouseOver="effettoData()" onMouseOut="effettoDataEsce()">
             <legend id="legendData">Data</legend>
-            <input type="date" name="data">
+            <input type="date" name="data" required onclick="startData()" onkeyup="startData()" id="dataInput">
+            <p id="errorData"></p>
          </fieldset>
          <fieldset id="ora" onMouseOver="effettoOra()" onMouseOut="effettoOraEsce()">
             <legend id="legendOra">Ora</legend>
@@ -131,13 +133,15 @@
              for(int x=a.getOraApertura();x<a.getOraChiusura();x++) {
             %>
             <div class="oraRadio">
-               <input type="radio" name="ora" value="<%=x%>00"><p><%=x %>:00</p>
+               <input type="radio" name="ora" value="<%=x%>00" required><p><%=x %>:00</p>
             </div>
             <div class="oraRadio">
-               <input type="radio" name="ora" value="<%=x %>30"><p><%=x %>:30</p>
+               <input type="radio" name="ora" value="<%=x %>30" required><p><%=x %>:30</p>
             </div>
-        <%} %>
+        <%} %>  
+                     <p id="errorOra"></p>
          </fieldset>
+
          <fieldset id="posti" onMouseOver="effettoPosti()" onMouseOut="effettoPostiEsce()">
             <legend id="legendPosti">Posti</legend>
             <input type="number" name="posti" min="1" max="<%=a.getNumPosti() %>" value="1" id="numberPosti">

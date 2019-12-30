@@ -88,3 +88,7 @@ legend {
 	color:darkred;
 	font-style:oblique;
 }
+
+#errorOra{
+	clear:left; 
+}
