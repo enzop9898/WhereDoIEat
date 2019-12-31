@@ -30,7 +30,7 @@
               %>
               <a id="collegamento2" href="suggerimenti.jsp" class="nav-link">Suggerimenti</a>
               <a id="collegamento" href="ServletLogout" class="nav-link">Logout</a>
-              <a id="collegamento" href="areaPersonale.jsp" class="nav-link">Area Personale</a>
+             <a id="collegamento" href="PrenotazioneControl?action=AllOrderFromUser&user=<%=p.getUsername() %>" class="nav-link">Area Personale</a>
                   <%if(p.getTipo()==2){ %>
                           <a id="collegamento" href="" class="nav-link">Le mie attivita</a>
                           <a id="collegamento" href="aggiungiAttivita.jsp" class="nav-link">Aggiungi attivita</a>

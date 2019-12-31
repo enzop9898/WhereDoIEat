@@ -179,6 +179,40 @@ public class RecensioneDAO {
 		return r;
 	}
 	
+	public synchronized ArrayList<RecensioneBean> doRetriveByUser(String user) throws SQLException {
+
+		Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	ArrayList<RecensioneBean> ret = new ArrayList<RecensioneBean>();
+	String selectSQL ="SELECT * FROM wheredoieat.recensione WHERE personaUsername = ?" ;
+	try {
+		connection = DriverManagerConnectionPool.getConnection();
+		preparedStatement = connection.prepareStatement(selectSQL);
+		preparedStatement.setString(1,user);
+
+		ResultSet rs = preparedStatement.executeQuery();
+
+		while (rs.next()) {
+			RecensioneBean bean=new RecensioneBean();
+			bean.setValutazione(rs.getInt("valutazione"));
+			bean.setCommento(rs.getString("commento"));
+			bean.setPersonaUsername(rs.getString("personaUsername"));
+			bean.setAttivitaIDAttivita(rs.getInt("attivitaIDAttivita"));
+			
+			
+			ret.add(bean);
+		}
+
+	} finally {
+		try {
+			if (preparedStatement != null)
+				preparedStatement.close();
+		} finally {
+			DriverManagerConnectionPool.releaseConnection(connection);
+		}
+	}
+	return ret;
+	}
 	
 	
 }

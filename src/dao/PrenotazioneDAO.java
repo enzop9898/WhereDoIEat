@@ -219,4 +219,41 @@ public class PrenotazioneDAO {
 		return ris;
 	}
 	
+	public ArrayList<PrenotazioneBean> doRetrieveByUser(String user) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ArrayList<PrenotazioneBean> ret=new ArrayList<PrenotazioneBean>();
+		String selectSQL = "select * from prenotazione where personaUsername= ?";
+       
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1,user);
+
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				PrenotazioneBean bean=new PrenotazioneBean();
+				bean.setIdPren(rs.getInt("idPren"));
+				bean.setData(rs.getString("data"));
+				bean.setOra(rs.getInt("ora"));
+				bean.setNumPosti(rs.getInt("numPosti"));
+				bean.setPersonaUsername(rs.getString("personaUsername"));
+				bean.setAttivitaIDAttivita(rs.getInt("attivitaIDAttivita"));
+				
+				ret.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return ret;
+	}
+	
+	
 }
