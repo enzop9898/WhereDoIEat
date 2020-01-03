@@ -32,7 +32,7 @@
               <a id="collegamento" href="ServletLogout" class="nav-link">Logout</a>
              <a id="collegamento" href="PrenotazioneControl?action=AllOrderFromUser&user=<%=p.getUsername() %>" class="nav-link">Area Personale</a>
                   <%if(p.getTipo()==2){ %>
-                          <a id="collegamento" href="RicercaControl?action=mie" class="nav-link">Le mie attivita</a>
+                          <a id="collegamento" href="" class="nav-link">Le mie attivita</a>
                           <a id="collegamento" href="aggiungiAttivita.jsp" class="nav-link">Aggiungi attivita</a>
                   <%} %>
               <% } else { %>
@@ -52,7 +52,7 @@
   <div class="input-group-append">
       <button class="btn btn-outline-secondary dropdown-toggle" id="locali" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Cosa vuoi mangiare?</button>
       <div class="dropdown-menu">
-        <a class="dropdown-item tipi" href="">Ristorante</a>
+        <a class="dropdown-item tipi" href="#">Ristorante</a>
         <div role="separator" class="dropdown-divider"></div>
         <a class="dropdown-item tipi" href="#">Pizzeria</a>
         <div role="separator" class="dropdown-divider"></div>
@@ -68,21 +68,21 @@
   <div class="input-group-append">
     <button class="btn btn-outline-secondary dropdown-toggle" id="comuni" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Dove vuoi mangiare?</button>
     <div class="dropdown-menu">
-      <a class="dropdown-item tipi" href="RicercaControl?action=SearchComune&comune=Baronissi">Baronissi</a>
+      <a class="dropdown-item tipi" href="#">Baronissi</a>
       <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item tipi" href="RicercaControl?action=SearchComune&comune=Salerno">Salerno</a>
+      <a class="dropdown-item tipi" href="#">Salerno</a>
       <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item tipi" href="RicercaControl?action=SearchComune&comune=Agropoli">Agropoli</a>
+      <a class="dropdown-item tipi" href="#">Agropoli</a>
       <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item tipi" href="RicercaControl?action=SearchComune&comune=SanCiprianoPicentino">San Cipriano Picentino</a>
+      <a class="dropdown-item tipi" href="#">San Cipriano Picentino</a>
       <div role="separator" class="dropdown-divider"></div>
-      <a class="dropdown-item tipi" href="RicercaControl?action=SearchComune&comune=Roccadaspide">Roccadaspide</a>
+      <a class="dropdown-item tipi" href="#">Roccadaspide</a>
     </div>
     
 </div>
  
       <div class="d-flex w-100 justify-content-end order-3">
-          <form class="d-flex flex-nowrap align-items-center" method="post" action="RicercaControl">
+          <form class="d-flex flex-nowrap align-items-center" method="post" action="AltreRicerche">
               <input type="hidden" name="action" value="SearchNome">
               <input class="form-control border-right-0 mr-n1" name="daCercare" type="search" size="50" placeholder="Cerca" aria-label="Search">
               <button id="cerca" class="btn btn-outline-secondary" type="submit"><i class="fa fa-search">Search</i></button>

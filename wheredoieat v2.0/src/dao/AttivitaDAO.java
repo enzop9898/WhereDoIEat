@@ -290,4 +290,52 @@ public class AttivitaDAO {
 		return 0;
 	 }
 	
+	
+	public static  ArrayList<AttivitaBean> doRetrieveByUtente(String username) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		ArrayList<AttivitaBean> a = new ArrayList<AttivitaBean>();
+
+		String selectSQL = "SELECT * FROM attivita WHERE personaUsername = ? ;";
+		
+		
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, username);
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				AttivitaBean bean = new AttivitaBean();
+				
+				
+				bean.setIdAttivita(rs.getInt("idAttivita"));
+				bean.setNome(rs.getString("nome"));
+				bean.setComune(rs.getString("comune"));
+				bean.setOraApertura(rs.getInt("oraApertura"));
+				bean.setOraChiusura(rs.getInt("oraChiusura"));
+				bean.setGiornoChiusura(rs.getString("giornoChiusura"));
+                bean.setIndirizzo(rs.getString("indirizzo"));
+                bean.setTelefono(rs.getString("telefono"));
+                bean.setNumPosti(rs.getInt("numPosti"));
+                bean.setMappa(rs.getString("mappa"));
+                bean.setPersonaUsername(rs.getString("personaUsername"));
+                
+				a.add(bean);
+			}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return a;
+	}
+	
 }

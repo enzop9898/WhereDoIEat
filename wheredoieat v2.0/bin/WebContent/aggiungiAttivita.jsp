@@ -8,48 +8,6 @@
 <title>WhereDoIEat</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="STILI/attivita.css">
-    
-    <script>
-      function Verifica(){
-    	  var nome = document.modulo.nome.value;
-    	  var indirizzo = document.modulo.indirizzo.value;
-    	  var comune = document.modulo.comune.value;
-    	  var telefono = document.modulo.telefono.value;
-    	  var mappa = document.modulo.mappa.value;
-    	 
-    	  if($("#nome").val().length>20 ||  $("#nome").val().length<1){
-              alert("errore lunghezza o formato nome");
-    		  return (false);
-    	  }
-    		                 
-    		                 
-          if(comune.length<3 || comune.length>20){
-        	  alert("errore lunghezza o formato comune");
-        	  return false;
-    	  }
-        	                  
-          
-          if(indirizzo.length<1 || indirizzo.length>40){
-        	  alert("errore lunghezza o formato indirizzo");
-        	  return false;
-    	  }
-                              
-          
-          if(telefono.length<6 || telefono.length>20){
-        	  alert("errore lunghezza o formato telefono");
-        	  return false;
-    	  }
-              					
-          if(mappa!=null && mappa!=""){
-	          if(mappa.length<1 || mappa.length>355){
-	        	  alert("errore lunghezza o formato mappa");
-	        	  return false;
-	    	  }
-          }
-     
-    	  return true;
-      }
-    </script>
  
 </head>
 <body>
@@ -67,7 +25,7 @@
             COMPILA I CAMPI E INSERISCI LA TUA NUOVA ATTIVITA'
         </div>
         <div class="card-body">
-            <form action="AggiungiAttivitaControl" method="post" name="modulo" onsubmit="javascript:return Verifica()">
+            <form action="AggiungiAttivitaControl" method="post">
                 <br>
                 <div class="form-group">
                 <% Boolean err = (Boolean) request.getAttribute("errore");
@@ -76,16 +34,16 @@
                 <p id="errore">L'ora di chiusura deve essere maggiore di quella di apertura</p>
                 <%} %>
                     <label for="inputMessage">Nome:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="nome" class="BORDONERO" id="nome" required>
+                    <input type="text" name="nome" class="BORDONERO" required>
                     <br>
                     <label for="inputMessage">Indirizzo:&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="indirizzo" class="BORDONERO" id="indirizzo" required>
+                    <input type="text" name="indirizzo" class="BORDONERO" required>
                     <br>
                     <label for="inputMessage">Comune:&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="comune" class="BORDONERO" id="comune" required>
+                    <input type="text" name="comune" class="BORDONERO" required>
                     <br>
                     <label for="inputMessage">Telefono:&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="telefono" class="BORDONERO" id="telefono" required>
+                    <input type="text" name="telefono" class="BORDONERO" required>
                     <br>
                     <label for="inputMessage">Giorno di chiusura:&nbsp</label>
                     <select name="giornoChiusura" class="BORDONERO" required>
@@ -130,10 +88,10 @@
                     <input type="number" min=1 max=200 name="posti" class="BORDONERO" required>
                     <br>
                     <label for="inputMessage">Mappa:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="mappa" class="BORDONERO" id="mappa">
+                    <input type="text" name="mappa" class="BORDONERO" required>
                     <br>
                     <label for="inputMessage">Foto del profilo:&nbsp&nbsp</label>
-                    <input type="text" name="foto" class="BORDONERO">
+                    <input type="text" name="foto" class="BORDONERO" required>
                     <br>
                 </div><br>
                     <button type="submit" class="btn btn-dark btn-lg float-left pren">Conferma</button>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.AttivitaBean;
+import bean.PersonaBean;
 import dao.AttivitaDAO;
 
 
@@ -70,7 +71,20 @@ public class RicercaControl extends HttpServlet {
 					request.setAttribute("lista",l) ;
 					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ListaAttivita.jsp");
 					dispatcher.forward(request, response);
-              }
+                }
+				else if(action.equalsIgnoreCase("mie")) {
+					try{
+					PersonaBean ut = (PersonaBean) request.getSession().getAttribute("cliente");
+					String s = ut.getUsername();
+					ArrayList<AttivitaBean> list=AttivitaDAO.doRetrieveByUtente(s);
+					request.setAttribute("lista",list) ;
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ListaAttivita.jsp");
+					dispatcher.forward(request, response);
+					}
+					catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
 		  }
 	}
 
