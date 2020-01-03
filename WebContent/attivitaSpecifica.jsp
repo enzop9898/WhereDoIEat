@@ -39,7 +39,14 @@
    <!--Main layout-->
     
   <main class="mt-0 pt-0">
+  <%
+     PersonaBean user=(PersonaBean)request.getSession().getAttribute("cliente");
+     if(user!=null) {
+  %>
   <button id="buttonPrenotazione" name="prenota" class="btn btn-dark btn-lg float-right pren" onClick="prenota()">prenota</button>
+  <%} else { %>
+  <button id="buttonPrenotazione" name="prenota" class="btn btn-dark btn-lg float-right pren" > <a href="login.jsp">prenota</a></button>
+  <%} %>
     <div class="container dark-grey-text mt-5" id="attivita" onClick="chiudiDiv()">
        
        <%
@@ -191,10 +198,9 @@
     </div>
 </div>
 
-
 <br><br>
 
-<% if(p.getTipo()==1){
+<% //if(p.getTipo()==1){
  %>
 <% Boolean recFatta = (Boolean) request.getAttribute("recensioneFatta");
    if(recFatta!=null && recFatta){%>	
@@ -234,7 +240,13 @@
                     <textarea name="commento" class="form-control BORDONERO" rows="5" id="inputMessage"></textarea>
                 </div><br>
                 <input type="hidden" name="attivita" value="<%=a.getIdAttivita()%>">
+                <%
+                PersonaBean user=(PersonaBean)request.getSession().getAttribute("cliente");
+                if(user!=null){ %>
                     <button type="submit" class="btn btn-dark btn-lg float-left pren">Conferma</button>
+                    <%} else {%>
+                    <button type="submit" class="btn btn-dark btn-lg float-left pren"><a href="login.jsp">Conferma</a></button>
+                    <%} %>
                 <br>
            
 
@@ -243,7 +255,8 @@
     </div>
 
 </div>
-<%}} %>
+<%}//} %>
+
 <%RecensioneDAO rdao= new RecensioneDAO();
 ArrayList<RecensioneBean> rList=new ArrayList<RecensioneBean>();
 rList=rdao.doRetrieveAll(a.getIdAttivita());%>

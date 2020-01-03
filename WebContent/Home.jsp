@@ -16,8 +16,8 @@
 
 </head>
 <body>
-    <%@ include file="header.jsp"%> 
-
+    <%@ include file="header.jsp"%>  
+ 
 
 <%   PersonaBean z= new PersonaBean();
      z=(PersonaBean) request.getSession().getAttribute("cliente");
