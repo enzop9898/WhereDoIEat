@@ -8,6 +8,17 @@
 <title>WhereDoIEat</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="STILI/attivita.css">
+    
+    <script>
+      function Verifica(){
+    	  var nome = document.modulo.nome.value;
+    	  var indirizzo = document.modulo.indirizzo.value;
+    	  var comune = document.modulo.comune.value;
+    	  var telefono = document.modulo.telefono.value;
+    	  alert(indirizzo);
+    	  return false;
+      }
+    </script>
  
 </head>
 <body>
@@ -25,7 +36,7 @@
             COMPILA I CAMPI E INSERISCI LA TUA NUOVA ATTIVITA'
         </div>
         <div class="card-body">
-            <form action="AggiungiAttivitaControl" method="post">
+            <form action="AggiungiAttivitaControl" method="post" name="modulo">
                 <br>
                 <div class="form-group">
                 <% Boolean err = (Boolean) request.getAttribute("errore");
@@ -94,7 +105,7 @@
                     <input type="text" name="foto" class="BORDONERO" required>
                     <br>
                 </div><br>
-                    <button type="submit" class="btn btn-dark btn-lg float-left pren">Conferma</button>
+                    <button type="button" class="btn btn-dark btn-lg float-left pren" onClick="Verifica()">Conferma</button>
                 <br>
            
 

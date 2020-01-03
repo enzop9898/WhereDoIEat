@@ -19,15 +19,25 @@
  l = (ArrayList<AttivitaBean>) request.getAttribute("lista");
   if(l!=null && l.size()!=0){
 	  for(AttivitaBean a : l){ 
+		  FotoDAO fdao= new FotoDAO();
+		   ArrayList<FotoBean> fList=new ArrayList<FotoBean>();
+		   fList=fdao.doRetrieveGroupby();
+		   String url="";
+		   if(a!=null) {
+			   for(int i=0;i<fList.size();i++) {
+			     if(fList.get(i).getAttivitaIDAttivita()==a.getIdAttivita()) {
+		  		    url=fList.get(i).getFoto();
+		  	     }
+			   }
 		 
   %>
        
        <div class = "col-md-4" id="cardColumn">
        	<form id="ViewForm" method="get" action="###dove voglio andare">
         	<div id="cardProdotti" class="card">
-          		<a href="quaa">
+          		<a href="ServletSingoloLocale?id=<%=a.getIdAttivita() %>">
           		<div id="picc">  <!-- dove voglio anda -->
-          			<img id="prodottoPic" src="fotoqui" class="card-img-top img-responsive" alt="...">
+          			<img id="prodottoPic" src="<%=url %>" class="card-img-top img-responsive" alt="...">
           		</div>
           		</a>
 			
@@ -43,7 +53,7 @@
         </div>
        
        
-<%}} %>
+<%}}} %>
 </div>
 
 <div id="spaziohome"><br><br><br><br><br></div>
