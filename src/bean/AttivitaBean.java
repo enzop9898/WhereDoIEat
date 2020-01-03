@@ -122,6 +122,87 @@ public class AttivitaBean {
 
 	public void setPersonaUsername(String personaUsername) {
 		this.personaUsername = personaUsername;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((comune == null) ? 0 : comune.hashCode());
+		result = prime * result + ((giornoChiusura == null) ? 0 : giornoChiusura.hashCode());
+		result = prime * result + idAttivita;
+		result = prime * result + ((indirizzo == null) ? 0 : indirizzo.hashCode());
+		result = prime * result + ((mappa == null) ? 0 : mappa.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + numPosti;
+		result = prime * result + oraApertura;
+		result = prime * result + oraChiusura;
+		result = prime * result + ((personaUsername == null) ? 0 : personaUsername.hashCode());
+		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AttivitaBean other = (AttivitaBean) obj;
+		if (comune == null) {
+			if (other.comune != null)
+				return false;
+		} else if (!comune.equals(other.comune))
+			return false;
+		if (giornoChiusura == null) {
+			if (other.giornoChiusura != null)
+				return false;
+		} else if (!giornoChiusura.equals(other.giornoChiusura))
+			return false;
+		if (idAttivita != other.idAttivita)
+			return false;
+		if (indirizzo == null) {
+			if (other.indirizzo != null)
+				return false;
+		} else if (!indirizzo.equals(other.indirizzo))
+			return false;
+		if (mappa == null) {
+			if (other.mappa != null)
+				return false;
+		} else if (!mappa.equals(other.mappa))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (numPosti != other.numPosti)
+			return false;
+		if (oraApertura != other.oraApertura)
+			return false;
+		if (oraChiusura != other.oraChiusura)
+			return false;
+		if (personaUsername == null) {
+			if (other.personaUsername != null)
+				return false;
+		} else if (!personaUsername.equals(other.personaUsername))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "AttivitaBean [idAttivita=" + idAttivita + ", nome=" + nome + ", comune=" + comune + ", oraApertura="
+				+ oraApertura + ", oraChiusura=" + oraChiusura + ", giornoChiusura=" + giornoChiusura + ", indirizzo="
+				+ indirizzo + ", telefono=" + telefono + ", numPosti=" + numPosti + ", mappa=" + mappa
+				+ ", personaUsername=" + personaUsername + "]";
 	}    
     
 }

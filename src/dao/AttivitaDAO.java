@@ -96,33 +96,7 @@ public class AttivitaDAO {
 	 }
 	
 	
-	public synchronized boolean doDelete(int idAttivita) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		int result = 0;
-
-		String deleteSQL = "delete from attivita" + " where idAttivita = ?";
-
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			connection.setAutoCommit(true);
-			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, idAttivita);
-
-			result = preparedStatement.executeUpdate();
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return (result != 0);
-	}
+	
 	
 	public synchronized void doUpdate(AttivitaBean a) throws SQLException {
 
@@ -158,6 +132,34 @@ public class AttivitaDAO {
 			connection.close();
 }
 } 
+	}
+	
+	public synchronized boolean doDelete(int idAttivita) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "delete from attivita" + " where idAttivita = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			connection.setAutoCommit(true);
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, idAttivita);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return (result != 0);
 	}
 	
 	public synchronized ArrayList<AttivitaBean> doRetrieveAll() throws SQLException {

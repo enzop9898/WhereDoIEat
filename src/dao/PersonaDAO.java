@@ -93,33 +93,7 @@ public class PersonaDAO {
 	 }
 	
 	
-	public synchronized boolean doDelete(String usr) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		int result = 0;
-
-		String deleteSQL = "delete from persona" + " where username = ?";
-
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			connection.setAutoCommit(true);
-			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, usr);
-
-			result = preparedStatement.executeUpdate();
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return (result != 0);
-	}
+	
 	
 	public synchronized void doUpdate(PersonaBean p) throws SQLException {
 
@@ -153,6 +127,34 @@ public class PersonaDAO {
 			connection.close();
 }
 } 
+	}
+	
+	public synchronized boolean doDelete(String usr) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		int result = 0;
+
+		String deleteSQL = "delete from persona" + " where username = ?";
+
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			connection.setAutoCommit(true);
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setString(1, usr);
+
+			result = preparedStatement.executeUpdate();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					connection.close();
+			}
+		}
+		return (result != 0);
 	}
 	
 	public synchronized ArrayList<PersonaBean> doRetrieveAll() throws SQLException {
@@ -285,6 +287,5 @@ public class PersonaDAO {
 		}
 		return null;
 	 }
-	
 	
 }
