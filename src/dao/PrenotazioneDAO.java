@@ -53,7 +53,7 @@ public class PrenotazioneDAO {
 			PrenotazioneBean p = new PrenotazioneBean(idPren); 
 			conn = DriverManagerConnectionPool.getConnection();
 			ps = conn.
-					prepareStatement("SELECT * FROM wheredoieat.prenotazione WHERE id = ?");
+					prepareStatement("SELECT * FROM wheredoieat.prenotazione WHERE idPren = ?");
 			ps.setInt(1, idPren);
 					
 			ResultSet res = ps.executeQuery();
@@ -166,7 +166,8 @@ public class PrenotazioneDAO {
 				PrenotazioneBean bean = new PrenotazioneBean();
 				bean.setIdPren(rs.getInt("idPren"));
 				bean.setData(rs.getString("data"));
-				bean.setOra(rs.getInt("numPosti"));
+				bean.setOra(rs.getInt("ora"));
+				bean.setNumPosti(rs.getInt("numPosti"));
 				bean.setPersonaUsername(rs.getString("personaUsername"));
 				bean.setAttivitaIDAttivita(rs.getInt("attivitaIDAttivita"));
 				

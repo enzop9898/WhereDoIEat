@@ -108,7 +108,7 @@ public class FotoDAO {
 		return (result != 0);
 	}
 	
-	public synchronized void doUpdate(FotoBean f) throws SQLException {
+	public synchronized void doUpdate(FotoBean f, String path) throws SQLException {
 
 		Connection connection = null;
 	PreparedStatement preparedStatement = null;
@@ -120,7 +120,7 @@ public class FotoDAO {
 		preparedStatement = connection.prepareStatement(updateSQL);
 		preparedStatement.setString(1, f.getFoto());
 		preparedStatement.setInt(2, f.getAttivitaIDAttivita());
-		preparedStatement.setString(3, f.getFoto());
+		preparedStatement.setString(3, path);
 	    preparedStatement.executeUpdate();
 
 	   connection.commit();

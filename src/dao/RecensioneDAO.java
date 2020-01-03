@@ -44,23 +44,23 @@ public class RecensioneDAO {
 	public void doSaveSelection(RecensioneBean r) {
 	}
 
-	public synchronized RecensioneBean doRetrieveByKey(String personaUsername, int attivitaIDAttivita){
+	public synchronized RecensioneBean doRetrieveByKey(int id){
 		 
 		 Connection conn = null;
 		 PreparedStatement ps = null;
 		 try {
-			RecensioneBean r = new RecensioneBean(personaUsername, attivitaIDAttivita); 
+			RecensioneBean r = new RecensioneBean(); 
 			conn = DriverManagerConnectionPool.getConnection();
 			ps = conn.
-					prepareStatement("SELECT * FROM wheredoieat.recensione WHERE personaUsername = ? AND attivitaIDAttivita = ?");
-			ps.setString(1, personaUsername);
-			ps.setInt(2,  attivitaIDAttivita);
+					prepareStatement("SELECT * FROM wheredoieat.recensione WHERE idRecensione = ?");
+			ps.setInt(1,  id);
 					
 			ResultSet res = ps.executeQuery();
 
 			// 4. Prendi il risultato
 			if(res.next())
 			{
+				r.setIdRecensione(res.getInt("idRecensione"));
 				r.setValutazione(res.getInt("valutazione"));
 				r.setCommento(res.getString("commento"));
 				r.setPersonaUsername(res.getString("personaUsername"));
@@ -85,20 +85,19 @@ public class RecensioneDAO {
 	 }
 	
 	
-	public synchronized boolean doDelete(String personaUsername, int attivitaIDAttivita) throws SQLException {
+	public synchronized boolean doDelete(int id) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "delete from recensione" + " where personaUsername = ? AND attivitaIDAttivita = ?";
+		String deleteSQL = "delete from recensione" + " where idRecensione = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			connection.setAutoCommit(true);
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, personaUsername);
-			preparedStatement.setInt(2, attivitaIDAttivita);
+			preparedStatement.setInt(1, id);
 			
 			result = preparedStatement.executeUpdate();
 
@@ -159,6 +158,7 @@ public class RecensioneDAO {
 
 			while (rs.next()) {
 				RecensioneBean bean = new RecensioneBean();
+				bean.setIdRecensione(rs.getInt("idRecensione"));
 				bean.setValutazione(rs.getInt("valutazione"));
 				bean.setCommento(rs.getString("commento"));
 				bean.setPersonaUsername(rs.getString("personaUsername"));

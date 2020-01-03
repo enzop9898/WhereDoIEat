@@ -43,23 +43,23 @@ public class PreferitiDAO {
 	public void doSaveSelection(PreferitiBean p) {
 	}
 
-	public synchronized PreferitiBean doRetrieveByKey(String personaUsername, int attivitaIDAttivita){
+	public synchronized PreferitiBean doRetrieveByKey(int idPref){
 		 
 		 Connection conn = null;
 		 PreparedStatement ps = null;
 		 try {
-			PreferitiBean p = new PreferitiBean(personaUsername, attivitaIDAttivita); 
+			PreferitiBean p = new PreferitiBean(); 
 			conn = DriverManagerConnectionPool.getConnection();
 			ps = conn.
-					prepareStatement("SELECT * FROM wheredoieat.preferiti WHERE personaUsername = ? AND attivitaIDAttivita");
-			ps.setString(1, personaUsername);
-			ps.setInt(2, attivitaIDAttivita);
+					prepareStatement("SELECT * FROM wheredoieat.preferiti WHERE idPref = ? ");
+			ps.setInt(1, idPref);
 					
 			ResultSet res = ps.executeQuery();
 
 			// 4. Prendi il risultato
 			if(res.next())
 			{
+				p.setIdPref(res.getInt("idPref"));
 				p.setPersonaUsername(res.getString("personaUsername"));
 				p.setAttivitaIDAttivita(res.getInt("attivitaIDAttivita"));
 				return p;
@@ -81,20 +81,19 @@ public class PreferitiDAO {
 	 }
 	
 	
-	public synchronized boolean doDelete(String personaUsername, int attivitaIDAttivita) throws SQLException {
+	public synchronized boolean doDelete(int idPref) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		int result = 0;
 
-		String deleteSQL = "delete from preferiti" + " where personaUsername = ? AND attivitaIDAttivita";
+		String deleteSQL = "delete from preferiti" + " where idPref = ?";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			connection.setAutoCommit(true);
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, personaUsername);
-			preparedStatement.setInt(2, attivitaIDAttivita);
+			preparedStatement.setInt(1, idPref);
 
 			result = preparedStatement.executeUpdate();
 
@@ -116,14 +115,13 @@ public class PreferitiDAO {
 	PreparedStatement preparedStatement = null;
 	
 	String updateSQL ="UPDATE preferiti"+
-            " SET personaUsername= ?, attivitaIDAttivita=? WHERE personaUsername=? AND attivitaIDAttivita";
+            " SET personaUsername= ?, attivitaIDAttivita=? WHERE idPref=? ";
 	try {
 		connection = DriverManagerConnectionPool.getConnection();
 		preparedStatement = connection.prepareStatement(updateSQL);
 		preparedStatement.setString(1, p.getPersonaUsername());
 		preparedStatement.setInt(2, p.getAttivitaIDAttivita());
-		preparedStatement.setString(3, p.getPersonaUsername());
-		preparedStatement.setInt(4, p.getAttivitaIDAttivita());
+		preparedStatement.setInt(3, p.getIdPref());
 	    preparedStatement.executeUpdate();
 
 	   connection.commit();
@@ -156,6 +154,7 @@ public class PreferitiDAO {
 
 			while (rs.next()) {
 				PreferitiBean bean = new PreferitiBean();
+				bean.setIdPref(rs.getInt("idPref"));
 				bean.setPersonaUsername(rs.getString("personaUsername"));
 				bean.setAttivitaIDAttivita(rs.getInt("attivitaIDAttivita"));
 				p.add(bean);

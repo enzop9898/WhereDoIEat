@@ -74,5 +74,56 @@ public class PrenotazioneBean {
 	public void setAttivitaIDAttivita(int attivitaIDAttivita) {
 		this.attivitaIDAttivita = attivitaIDAttivita;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + attivitaIDAttivita;
+		result = prime * result + ((data == null) ? 0 : data.hashCode());
+		result = prime * result + idPren;
+		result = prime * result + numPosti;
+		result = prime * result + ora;
+		result = prime * result + ((personaUsername == null) ? 0 : personaUsername.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PrenotazioneBean other = (PrenotazioneBean) obj;
+		if (attivitaIDAttivita != other.attivitaIDAttivita)
+			return false;
+		if (data == null) {
+			if (other.data != null)
+				return false;
+		} else if (!data.equals(other.data))
+			return false;
+		if (idPren != other.idPren)
+			return false;
+		if (numPosti != other.numPosti)
+			return false;
+		if (ora != other.ora)
+			return false;
+		if (personaUsername == null) {
+			if (other.personaUsername != null)
+				return false;
+		} else if (!personaUsername.equals(other.personaUsername))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "PrenotazioneBean [idPren=" + idPren + ", data=" + data + ", ora=" + ora + ", numPosti=" + numPosti
+				+ ", personaUsername=" + personaUsername + ", attivitaIDAttivita=" + attivitaIDAttivita + "]";
+	}
     
+	
+	
 }
