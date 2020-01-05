@@ -34,13 +34,13 @@ public class TestPersonaDAO {
 	public void testDoSave() throws SQLException {
 		PersonaBean inserito=new PersonaBean();
 		inserito=tester.doRetrieveByKey(persona.getUsername());
-		assertEquals("Result", inserito, persona);
+		assertEquals(persona, inserito);
 	}
 	
 	
 	@Test
 	public void testDoRetrieveByKey() {
-		assertEquals("Result", persona, tester.doRetrieveByKey(persona.getUsername()));
+		assertEquals(persona, tester.doRetrieveByKey(persona.getUsername()));
 	}
 
 	@Test
@@ -52,13 +52,13 @@ public class TestPersonaDAO {
 		persona.setTelefono("393404181948");
 		tester.doUpdate(persona);
 		PersonaBean inserito=tester.doRetrieveByKey(persona.getUsername());
-		assertEquals("Result", inserito, persona);
+		assertEquals(inserito, persona);
 	}
 	
 	@Test
 	public void testDoDelete() throws SQLException {
-		
-		assertEquals("Result", true, tester.doDelete(persona.getUsername()));
+		tester.doDelete(persona.getUsername());
+		assertEquals(null, tester.doRetrieveByKey(persona.getUsername()));
 	}
 
 
@@ -85,17 +85,17 @@ public class TestPersonaDAO {
 		persone.add(persona);
 		persona=new PersonaBean("toni9", "Luca", "Toni", "toniluca9@gmail.com", "393453456789", "Firenze", 2, "casigliolo", "Mistersessa69");
 		persone.add(persona);
-		assertEquals("Result", persone, tester.doRetrieveAll());
+		assertEquals(persone, tester.doRetrieveAll());
 	}
 
 	@Test
 	public void testDoRetrieveByLogin() {
-		assertEquals("Result", persona, tester.doRetrieveByLogin(persona.getUsername(), persona.getPassword()));
+		assertEquals(persona, tester.doRetrieveByLogin(persona.getUsername(), persona.getPassword()));
 	}
 
 	@Test
 	public void testDoRetrieveByEmail() {
-		assertEquals("Result", persona, tester.doRetrieveByEmail(persona.getEmail()));
+		assertEquals(persona, tester.doRetrieveByEmail(persona.getEmail()));
 	}
 
 }
