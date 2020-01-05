@@ -17,24 +17,9 @@ public class TestDoRetrieveAll extends TestCase{
 
 	private PersonaDAO tester=new PersonaDAO();
 	   
-	   private PersonaBean persona;
-	   
-	   @Before
-	   public void setUp() throws Exception {
-		   super.setUp();
-		   persona=new PersonaBean("lapulce10","Lionel","Messi","lapulce10@gmail.com","393404181948","Barcelona",1,"barca","lapulce");
-		   tester.doSave(persona);
-	   }
-	   
-	   @After
-	   public void tearDown() throws Exception {
-		   super.tearDown();
-		   tester.doDelete(persona.getUsername());
-	   }
 	   
 	   @Test
 		public void testDoRetrieveAll() throws SQLException {
-			tester.doDelete(persona.getUsername());
 			ArrayList<PersonaBean> persone=new ArrayList<PersonaBean>();
 			PersonaBean persona=new PersonaBean("amecuomo", "Amedeo", "Cuomo", "amedeo@bestemmio.com", "393452134567", "Salerno", 2, "Baronissi", "Mistersessa69");
 			persone.add(persona);

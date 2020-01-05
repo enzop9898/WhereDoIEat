@@ -1,4 +1,4 @@
-package junit;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -11,15 +11,17 @@ import org.junit.Test;
 
 import bean.RecensioneBean;
 import dao.RecensioneDAO;
+import junit.framework.TestCase;
 
-public class TestRecensioneDAO {
+public class TestRecensioneDAO extends TestCase{
 
 	
 	private RecensioneDAO tester=new RecensioneDAO();
 	private RecensioneBean r;
 	
 	@Before
-	public void setUp() throws SQLException {
+	public void setUp() throws Exception {
+		super.setUp();
 		r=new RecensioneBean(3, "ciao dosdfisf sdf suf suf ncsuvbsiuaisubvdhfi sdhiv sdhbvu ", "elcardinero", 1);
 		tester.doSave(r);
 		ArrayList<RecensioneBean>find=new ArrayList<RecensioneBean>();
@@ -28,38 +30,16 @@ public class TestRecensioneDAO {
 	}
 	
 	@After
-	 public void tearDown() throws SQLException {
+	 public void tearDown() throws Exception {
+		super.tearDown();
 		   tester.doDelete(r.getIdRecensione());
 	   }
 	
-	
-	@Test
-	public void testDoSave() {
-		
-		RecensioneBean r2=tester.doRetrieveByKey(r.getIdRecensione());
-		assertEquals("Result", r, r2);
-	}
-
-
 	@Test
 	public void testDoRetrieveByKey() {
-		assertEquals("Result", r, tester.doRetrieveByKey(r.getIdRecensione()));
-		
+		assertEquals(r, tester.doRetrieveByKey(r.getIdRecensione()));
 	}
-
-	@Test
-	public void testDoDelete() throws SQLException {
-		assertEquals("Result", true, tester.doDelete(r.getIdRecensione()));
-	}
-
-	@Test
-	public void testDoUpdate() throws SQLException {
-		r.setCommento("ooodooooooooooooooooooooooo     o o o oo  oo");
-		r.setValutazione(1);
-		tester.doUpdate(r);
-		assertEquals("Result", r, tester.doRetrieveByKey(r.getIdRecensione()));
-	}
-
+	
 	@Test
 	public void testDoRetrieveAll() throws SQLException {
 		ArrayList<RecensioneBean> list=new ArrayList<RecensioneBean>();
@@ -67,7 +47,27 @@ public class TestRecensioneDAO {
 		list.add(r2);
 		r2=new RecensioneBean(1, "asdfsf safsd gfdsg", "gerdenis", 2);
 		list.add(r2);
-		assertEquals("Result", list, tester.doRetrieveAll(2));
+		assertEquals(list, tester.doRetrieveAll(2));
+	}
+	
+	@Test
+	public void testDoSave() {
+		RecensioneBean r2=tester.doRetrieveByKey(r.getIdRecensione());
+		assertEquals(r, r2);
+	}
+
+	@Test
+	public void testDoDelete() throws SQLException {
+		tester.doDelete(r.getIdRecensione());
+		assertEquals(null, tester.doRetrieveByKey(r.getIdRecensione()));
+	}
+
+	@Test
+	public void testDoUpdate() throws SQLException {
+		r.setCommento("ooodooooooooooooooooooooooo     o o o oo  oo");
+		r.setValutazione(1);
+		tester.doUpdate(r);
+		assertEquals(r, tester.doRetrieveByKey(r.getIdRecensione()));
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class TestRecensioneDAO {
 		ArrayList<RecensioneBean> list=new ArrayList<RecensioneBean>();
 		RecensioneBean r2=new RecensioneBean(1, "asdfsf safsd gfdsg", "gerdenis", 2);
 		list.add(r2);
-		assertEquals("Result", list, tester.doRetriveByUser("gerdenis"));
+		assertEquals(list, tester.doRetriveByUser("gerdenis"));
 	}
 
 }

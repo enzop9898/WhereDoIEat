@@ -1,4 +1,4 @@
-package junit;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -11,38 +11,42 @@ import org.junit.Test;
 
 import bean.FotoBean;
 import dao.FotoDAO;
+import junit.framework.TestCase;
 
-public class TestFotoDAO {
+public class TestFotoDAO extends TestCase{
 
 	private FotoBean f;
 	private FotoDAO tester=new FotoDAO();
 	
 	@Before
-	public void setUp() throws SQLException {
+	public void setUp() throws Exception {
+		super.setUp();
 		f=new FotoBean("zzz.jpg",1);
 		tester.doSave(f);
 	}
 	
 	@After
-	public void tearDown() throws SQLException {
+	public void tearDown() throws Exception {
+		super.tearDown();
 		tester.doDelete(f.getFoto());
+	}
+	
+	@Test
+	public void testDoRetrieveByKey() {
+		assertEquals(f,tester.doRetrieveByKey(f.getFoto()));
 	}
 	
 	@Test
 	public void testDoSave() {
 		FotoBean inserito=tester.doRetrieveByKey(f.getFoto());
-		assertEquals("Result", inserito, f);
+		assertEquals(f, inserito);
 	}
 
-
-	@Test
-	public void testDoRetrieveByKey() {
-		assertEquals("Result", f,tester.doRetrieveByKey(f.getFoto()));
-	}
 
 	@Test
 	public void testDoDelete() throws SQLException {
-		assertEquals("Result", true, tester.doDelete(f.getFoto()));
+		tester.doDelete(f.getFoto());
+		assertEquals(null, tester.doRetrieveByKey(f.getFoto()));
 	}
 
 	@Test
@@ -51,17 +55,17 @@ public class TestFotoDAO {
 		f.setFoto("zzzzzzz.png");
 		tester.doUpdate(f,path);
 		FotoBean mod=tester.doRetrieveByKey(f.getFoto());
-		System.out.println(mod);
-		assertEquals("Result",mod, f);
+		assertEquals(f, mod);
 	}
 
 	@Test
-	public void testDoRetrieveAll() {
+	public void testDoRetrieveAll() throws SQLException {
 		ArrayList<FotoBean>list=new ArrayList<FotoBean>();
 		FotoBean f2=new FotoBean("fotodb/bruschetta.jpg",1);
 		list.add(f2);
 		f2=new FotoBean("fotodb/ristorante-da-kico.jpg", 1);
 		list.add(f2);
+		list.add(f);
 		f2=new FotoBean("fotodb/img-ristoranti.jpg", 2);
 		list.add(f2);
 		f2=new FotoBean("fotodb/la-sala.jpg", 2);
@@ -82,8 +86,10 @@ public class TestFotoDAO {
 		list.add(f2);
 		f2=new FotoBean("fotodb/ristorante1.jpg", 3);
 		list.add(f2);
-		list.add(f);
 		
+		
+		System.out.println(tester.doRetrieveByKey(f.getFoto()).getFoto());
+		assertEquals(list, tester.doRetrieveAll());
 	}
 
 	@Test
@@ -95,7 +101,7 @@ public class TestFotoDAO {
 		list.add(f2);
 		f2=new FotoBean("fotodb/imagesILV4I6JR.jpg", 3);
 		list.add(f2);
-		assertEquals("Result", list, tester.doRetrieveGroupby());
+		assertEquals(list, tester.doRetrieveGroupby());
 	}
 
 	@Test
@@ -106,7 +112,7 @@ public class TestFotoDAO {
 		f2=new FotoBean("fotodb/ristorante-da-kico.jpg", 1);
 		list.add(f2);
 		list.add(f);
-		assertEquals("Result", list, tester.doRetrieveByAttivita(1));
+		assertEquals(list, tester.doRetrieveByAttivita(1));
 	}
 
 }

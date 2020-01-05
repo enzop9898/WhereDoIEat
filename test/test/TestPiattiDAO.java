@@ -1,4 +1,4 @@
-package junit;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -11,14 +11,16 @@ import org.junit.Test;
 
 import bean.PiattiBean;
 import dao.PiattiDAO;
+import junit.framework.TestCase;
 
-public class TestPiattiDAO {
+public class TestPiattiDAO extends TestCase{
 
 	private PiattiDAO tester=new PiattiDAO();
 	private PiattiBean p;
 	
 	@Before
-	public void setUp() throws SQLException {
+	public void setUp() throws Exception {
+		super.setUp();
 		p=new PiattiBean(0,"patate","patate cotte nel forno elettrico",1);
 		tester.doSave(p);
 		ArrayList<PiattiBean> find=new ArrayList<PiattiBean>();
@@ -27,37 +29,16 @@ public class TestPiattiDAO {
 	}
 	
 	@After
-	 public void tearDown() throws SQLException {
+	 public void tearDown() throws Exception {
+		super.tearDown();
 		   tester.doDelete(p.getIdPiatto());
 	   }
 	
 	@Test
-	public void testDoSave() {
-		PiattiBean p2=new PiattiBean();
-		p2=tester.doRetrieveByKey(p.getIdPiatto());
-		assertEquals("Result", p2, p);
-	}
-
-	@Test
 	public void testDoRetrieveByKey() {
-		assertEquals("Result", p, tester.doRetrieveByKey(p.getIdPiatto()));
+		assertEquals(p, tester.doRetrieveByKey(p.getIdPiatto()));
 	}
-
-	@Test
-	public void testDoDelete() throws SQLException {
-		assertEquals("Result", true, tester.doDelete(p.getIdPiatto()));
-	}
-
-	@Test
-	public void testDoUpdate() throws SQLException {
-		p.setPiatto("patatine fritte");
-		p.setDescrizione("patatine con olio di girasoli");
-		tester.doUpdate(p);
-		PiattiBean p2=new PiattiBean();
-		p2=tester.doRetrieveByKey(p.getIdPiatto());
-		assertEquals("Result", p2, p);
-	}
-
+	
 	@Test
 	public void testDoRetrieveAll() throws SQLException {
 		ArrayList<PiattiBean> list=new ArrayList<PiattiBean>();
@@ -76,8 +57,33 @@ public class TestPiattiDAO {
 		p2=new PiattiBean(7, "tagliata di carne", "carne servita con contorni tipici della zona", 3);
 		list.add(p2);
 		list.add(p);
-		assertEquals("Result", list, tester.doRetrieveAll());
+		assertEquals(list, tester.doRetrieveAll());
 	}
+	
+	@Test
+	public void testDoSave() {
+		PiattiBean p2=new PiattiBean();
+		p2=tester.doRetrieveByKey(p.getIdPiatto());
+		assertEquals(p, p2);
+	}
+
+	@Test
+	public void testDoDelete() throws SQLException {
+		tester.doDelete(p.getIdPiatto());
+		assertEquals(null, tester.doRetrieveByKey(p.getIdPiatto()));
+	}
+
+	@Test
+	public void testDoUpdate() throws SQLException {
+		p.setPiatto("patatine fritte");
+		p.setDescrizione("patatine con olio di girasoli");
+		tester.doUpdate(p);
+		PiattiBean p2=new PiattiBean();
+		p2=tester.doRetrieveByKey(p.getIdPiatto());
+		assertEquals(p, p2);
+	}
+
+	
 
 	@Test
 	public void testDoRetrieveByAttivita() {
@@ -89,7 +95,7 @@ public class TestPiattiDAO {
 		p2=new PiattiBean(6, "risotto", "Risotto tipico della zona con funghi paesani", 1);
 		list.add(p2);
 		list.add(p);
-		assertEquals("Result",list, tester.doRetrieveByAttivita(p.getAttivitaIDAttivita()));
+		assertEquals(list, tester.doRetrieveByAttivita(p.getAttivitaIDAttivita()));
 		
 	}
 

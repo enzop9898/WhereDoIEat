@@ -1,4 +1,4 @@
-package junit;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -11,15 +11,17 @@ import org.junit.Test;
 
 import bean.PreferitiBean;
 import dao.PreferitiDAO;
+import junit.framework.TestCase;
 
-public class TestPreferitiDAO {
+public class TestPreferitiDAO extends TestCase{
 
 	private PreferitiDAO tester=new PreferitiDAO();
 	private PreferitiBean p;
 	
 	
 	@Before
-	public void setUp() throws SQLException {
+	public void setUp() throws Exception {
+		super.setUp();
 		p=new PreferitiBean("tanucc",2);
 		tester.doSave(p);
 		ArrayList<PreferitiBean> find=new ArrayList<PreferitiBean>();
@@ -28,25 +30,36 @@ public class TestPreferitiDAO {
 	}
 	
 	@After
-	public void tearDown() throws SQLException {
+	public void tearDown() throws Exception {
+		super.tearDown();
 		   tester.doDelete(p.getIdPref());
 	   }
+	
+	@Test
+	public void testDoRetrieveByKey() {
+		assertEquals(p, tester.doRetrieveByKey(p.getIdPref()));
+	}
+	
+	@Test
+	public void testDoRetrieveAll() throws SQLException {
+		ArrayList<PreferitiBean> list=new ArrayList<PreferitiBean>();
+		list.add(p);
+		assertEquals(list, tester.doRetrieveAll());
+	}
 	
 	@Test
 	public void testDoSave() {
 		PreferitiBean p2=new PreferitiBean();
 		p2=tester.doRetrieveByKey(p.getIdPref());
-		assertEquals("Result",p2,p);
+		assertEquals(p, p2);
 	}
 	
-	@Test
-	public void testDoRetrieveByKey() {
-		assertEquals("Result", p, tester.doRetrieveByKey(p.getIdPref()));
-	}
+	
 
 	@Test
 	public void testDoDelete() throws SQLException {
-		assertEquals("Result", true, tester.doDelete(p.getIdPref()));
+		tester.doDelete(p.getIdPref());
+		assertEquals(null, tester.doRetrieveByKey(p.getIdPref()));
 	}
 
 	@Test
@@ -56,14 +69,9 @@ public class TestPreferitiDAO {
 		tester.doUpdate(p);
 		PreferitiBean p2=new PreferitiBean();
 		p2=tester.doRetrieveByKey(p.getIdPref());
-		assertEquals("Result", p2,p);
+		assertEquals(p, p2);
 	}
 
-	@Test
-	public void testDoRetrieveAll() throws SQLException {
-		ArrayList<PreferitiBean> list=new ArrayList<PreferitiBean>();
-		list.add(p);
-		assertEquals("Result", list, tester.doRetrieveAll());
-	}
+	
 
 }
