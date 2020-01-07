@@ -22,6 +22,20 @@ function control(form)
 	 document.getElementById("nome").focus();
 	 return(false);
 	}
+	
+	if ($("#nome").val().length>20)
+	{
+    $("#errorNome").text('Il nome non può superare i 20 caratteri').css({"color":"red"});
+	 document.getElementById("nome").focus();
+	 return(false);
+	}
+	
+	var regexnome="^[a-zA-Z]+(?:[\s'][a-zA-Z]+)*$";
+	if(!($("#nome").val().match(regexnome))) {
+		$("#errorNome").text('Formato nome non corretto').css({"color":"red"});
+		 document.getElementById("nome").focus();
+		 return(false);
+	}
 
 	 
 	if ($("#cognome").val()=="")
@@ -30,6 +44,21 @@ function control(form)
 	 document.getElementById("cognome").focus();
 	 return(false);
 	}
+	
+	if ($("#cognome").val().length>20)
+	{
+    $("#errorCognome").text('Il cognome non può superare i 20 caratteri').css({"color":"red"});
+	 document.getElementById("cognome").focus();
+	 return(false);
+	}
+	
+	if(!($("#cognome").val().match(regexnome))) {
+		$("#errorCognome").text('Formato cognome non corretto').css({"color":"red"});
+		 document.getElementById("cognome").focus();
+		 return(false);
+	}
+	
+	
 
 	if ($("#username").val()=="")
 	{
@@ -52,6 +81,13 @@ function control(form)
 	 return(false);
 	}
 	
+	var regexuser="^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$";
+	if(!($("#username").val().match(regexuser))) {
+		$("#errorU").text('Formato username non corretto').css({"color":"red"});
+		 document.getElementById("password").focus();
+		 return(false);
+	}
+	
 	if($("#telefono").val()=="")
 		{
 		$("#errorTel").text('Non hai inserito il tuo numero di telefono.').css({"color":"red"});
@@ -59,6 +95,7 @@ function control(form)
 		return(false);
 		}
 	
+
 	if($("#telefono").val().length<8) 
 	{
 		$("#errorTel").text('Il numero di telefono ha almeno 8 cifre.').css({"color":"red"});
@@ -95,6 +132,13 @@ function control(form)
 		return(false);
 	}
 	
+	var regexcitta="^[a-zA-Z]+(?:[\s'][a-zA-Z]+)*$";
+	if(!($("#citta").val().match(regexcitta))) {
+		$("#errorCitta").text('Formato non corretto').css({"color":"red"});
+		document.getElementById("citta").focus();
+		return(false);
+	}
+	
 	if($("#comune").val()=="") 
 	{
 		$("#errorComune").text('Non hai inserito il tuo comune').css({"color":"red"});
@@ -109,6 +153,12 @@ function control(form)
 		return(false);
 	}
 	
+	if(!($("#comune").val().match(regexcitta))) {
+		$("#errorComune").text('Formato non corretto').css({"color":"red"});
+		document.getElementById("comune").focus();
+		return(false);
+	}
+	
 	 
 	if ($("#email").val()=="")
 	{
@@ -116,6 +166,12 @@ function control(form)
 	 document.getElementById("email").focus();
 	 return(false);
 	}
+	
+	if($("#email").val().length>100) {
+		$("#errorEmail").text('email troppo lunga').css({"color":"red"});
+		 document.getElementById("email").focus();
+		 return(false);
+	} 
 	
 	var regexEmail = "^\\w+([\\.-]?\\w+)@\\w+([\\.-]?\\w+)(\\.\\w{2,3})+$";
 	if(!($("#email").val().match(regexEmail))) {
@@ -139,9 +195,9 @@ if ($("#password").val().length<8)
  return(false);
 }
 
-if ($("#password").val().length>16)
+if ($("#password").val().length>25)
 {
-	$("#errorP1").text('Inserire una password con massimo 16 caratteri.').css({"color":"red"});
+	$("#errorP1").text('Inserire una password con massimo 25 caratteri.').css({"color":"red"});
  document.getElementById("password").focus();
  return(false);
 }

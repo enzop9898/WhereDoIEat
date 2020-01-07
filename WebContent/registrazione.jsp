@@ -14,16 +14,7 @@
 <body>
 
  <%@ include file="header.jsp"%>
- 
- 
-  <!--<div id="MIODIV">-->
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 mx-auto">
-    
-                            <%
+   <%
                              Boolean failed=(Boolean) request.getAttribute("failed");
                              if(failed!=null) {
                             %>
@@ -31,6 +22,15 @@
                             <p>l'username o la tua email sono gia' registrati sul sito. </p>
                             </div>
                             <%} %> 
+<script src="controlli.js"></script> 
+  <!--<div id="MIODIV">-->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+    
+                          
    
                         <!-- form card login -->
                         <div class="card rounded-0 CDtot" id="contenitoreTotale">
@@ -38,7 +38,7 @@
                                 <h3 class="mb-0">REGISTRATI</h3>
                             </div>
                             <div class="card-body">
-                            <p id="error">
+                            <p id="error"> 
 		                    </p> 
                                   <form action="ServletRegistrazione" method="post" onsubmit="return control(this)">                                    
                                   <div class="form-group">
