@@ -38,10 +38,6 @@ public class ServletModifica extends HttpServlet {
 		PersonaDAO dao=new PersonaDAO();
 		PersonaBean vecchia=new PersonaBean();
 		vecchia= (PersonaBean) request.getSession().getAttribute("cliente");
-		System.out.println(vecchia.getNome());
-		System.out.println(vecchia.getEmail());
-		System.out.println(vecchia.getUsername());
-		System.out.println(vecchia.getComune());
 		if(telefono!="")
 			vecchia.setTelefono(telefono);
 		if(citta!="")
@@ -54,6 +50,7 @@ public class ServletModifica extends HttpServlet {
 			// TODO Auto-generated catch block **abbiamo deciso di modificare così pochi campi per scelta progettuale**
 			e.printStackTrace();
 		}
+		request.setAttribute("modOk", true);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/areaPersonale.jsp");
 		dispatcher.forward(request, response);
 		

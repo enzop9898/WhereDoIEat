@@ -35,6 +35,12 @@
  <br>
  <br>
 	<div class="container">
+	<%
+	   Boolean modOk=(Boolean) request.getAttribute("modOk");
+	   if(modOk!=null) {
+	%>
+	<h4>Modifica effettuata con successo!</h4>
+	<%} %>
 		<div class="row m-y-2">
 			<div class="col-lg-8 push-lg-4">
 				<ul class="nav nav-tabs" id="contenitore_datatarget">
@@ -114,23 +120,24 @@
 						<h4 class="m-y-2 prova">Modifica Dati Personali</h4>
 						<br>
 						<div class="row">
-							<form action="ServletModifica" method="post">                                    
+						<script src="controlliModDati.js"></script>
+							<form action="ServletModifica" method="post" onsubmit="return control(this)">                                    
          
                                     <div class="form-group">
                                         <label  class="grassetto">&nbspTelefono</label>
-                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="telefono" value="" id="telefono" >
-                                      
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="telefono" value="" id="telefono" onclick="startTelefono()" onkeyup="startTelefono()">
+                                       <p id="errorTel" class="suggerimento">Deve contenere anche il prefisso.</p>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label  class="grassetto">&nbspCitt&agrave</label>
-                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="citta" id="citta" value="">
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="citta" id="citta" value="" onclick="startCitta()" onkeyup="startCitta()">
                                          <p id="errorCitta"></p>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label  class="grassetto">&nbspComune</label>
-                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="comune" value="" id="comune">
+                                        <input type="text" class="form-control form-control-lg rounded-0 BORDONERO" name="comune" value="" id="comune" onclick="startComune()" onkeyup="startComune()">
                                          <p id="errorComune"></p>
                                     </div>
                                     <button type="submit" class="btn btn-danger btn-lg float-right btn-mio" id="btnLogin">Conferma</button>
