@@ -8,8 +8,27 @@
 <title>WhereDoIEat</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="STILI/attivita.css">
-    
     <script>
+          function validaFormatoNome(nome){
+        	  var regexp =^[a-zA-Z0-9 _.-]*$;
+        	    return regexp.test(nome);
+          }
+          
+          function validaFormatoComune(comune){
+        	  var regexp =^[a-zA-Z]+(?:[\s][a-zA-Z]+)*$;
+        	    return regexp.test(comune);
+          }
+          
+          function validaFormatoIndirizzo(indirizzo){
+        	  var regexp = [A-Z][a-zA-Z][^#&<>\~;$^%{}]{1,20}$;
+        	    return regexp.test(indirizzo);
+          }
+          
+          function validaFormatoTelefono(telefono){
+        	  var regexp = /39{1}[0-9]{10};
+        	    return regexp.test(telefono);
+          }
+
       function Verifica(){
     	  var nome = document.modulo.nome.value;
     	  var indirizzo = document.modulo.indirizzo.value;
@@ -17,31 +36,31 @@
     	  var telefono = document.modulo.telefono.value;
     	  var mappa = document.modulo.mappa.value;
     	 
-    	  if($("#nome").val().length>20 ||  $("#nome").val().length<1){
+    	  if($("#nome").val().length>20 ||  $("#nome").val().length<1  ||  !(validaFormatoNome($("#nome").val())) ){
               alert("errore lunghezza o formato nome");
     		  return (false);
     	  }
     		                 
     		                 
-          if(comune.length<3 || comune.length>20){
+          if(comune.length<3 || comune.length>20 ||  !(validaFormatoComune(comune)) ){
         	  alert("errore lunghezza o formato comune");
         	  return false;
     	  }
         	                  
           
-          if(indirizzo.length<1 || indirizzo.length>40){
+          if(indirizzo.length<1 || indirizzo.length>40 ||  !(validaFormatoIndirizzo(indirizzo))){
         	  alert("errore lunghezza o formato indirizzo");
         	  return false;
     	  }
                               
           
-          if(telefono.length<6 || telefono.length>20){
+          if(telefono.length<6 || telefono.length>20 ||  !(validaFormatoTelefono(telefono))){
         	  alert("errore lunghezza o formato telefono");
         	  return false;
     	  }
               					
           if(mappa!=null && mappa!=""){
-	          if(mappa.length<1 || mappa.length>355){
+	          if(mappa.length<1 || mappa.length>355 ||  ){
 	        	  alert("errore lunghezza o formato mappa");
 	        	  return false;
 	    	  }
