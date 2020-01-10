@@ -8,6 +8,92 @@
 <title>WhereDoIEat</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="STILI/attivita.css">
+    <script>
+   
+          function validaFormatoNome(nome){
+        	  var regexp =new RegExp("^[a-zA-Z0-9 '_.-]*$");
+        	    return regexp.test(nome);
+          }
+          
+          function validaFormatoComune(comune){
+        	  var regexp =new RegExp("^[a-zA-Z']+(?:[\s][a-zA-Z ']+)*$");
+        	    return regexp.test(comune);
+          }
+          
+          function validaFormatoIndirizzo(indirizzo){
+        	  var regexp = new RegExp("[A-Z][a-zA-Z][^#&<>\~;$^%{}@]{1,40}$");
+        	    return regexp.test(indirizzo);
+          }
+          
+          function validaFormatoTelefono(telefono){
+        	  var regexp = new RegExp("39{1}[0-9]{10}");
+        	    return regexp.test(telefono);
+          }
+
+      function Verifica(){
+
+    	  var nome = document.modulo.nome.value;
+    	  var indirizzo = document.modulo.indirizzo.value;
+    	  var comune = document.modulo.comune.value;
+    	  var telefono = document.modulo.telefono.value;
+    	  var mappa = document.modulo.mappa.value;
+    	 
+    	  if($("#nome").val().length>20) {
+    		  alert("Il campo nome non può avere lunghezza >20");
+    	  } 
+    	  if(  $("#nome").val().length<1 )  {
+              alert("Il campo nome non può essere vuoto");
+    		  return false;
+    	  }
+    	  if(!(validaFormatoNome($("#nome").val())) ) {
+    		  alert("Il campo nome non rispetta il formato");
+    		  return false;
+    	  }
+    	  
+    	  if($("#indirizzo").val().length<1) {
+    		  alert("Il campo indirizzo non può essere vuoto");
+    		  return false;
+    	  }
+    	  if ($("#indirizzo").val().length>40) {
+    		  alert("Il campo indirizzo non può avere una lunghezza >40");
+    		  return false;
+    	  }
+    	  if(!(validaFormatoIndirizzo($("#indirizzo").val()))){
+        	  alert("Il campo indirizzo non rispetta il formato. Es. Via Antonio Rossi n°3");
+        	  return false;
+    	  }
+    		                 
+          if($("#comune").val().length<3) {
+        	  alert("Il campo comune non puo' essere cosi corto.");
+        	  return false;
+          } if($("#comune").val().length>20) {
+        	  alert("Il campo comune non puo' avere una lugnhezza >20");
+        	  return false;
+          } 
+          if(!(validaFormatoComune($("#comune").val())) ){
+        	  alert("Il campo comune non rispetta il formato");
+        	  return false;
+    	  }
+        	                  
+          
+          if($("#telefono").val().length<1) {
+        	  alert("Il campo telefono non pu' essere vuoto");
+        	  return false;
+          }
+          if(!(validaFormatoTelefono($("#telefono").val()))){
+        	  alert("Il campo telefono non rispetta il formato. Es. 393404181948");
+        	  return false;
+    	  }
+              					alert("tamp")
+	      if($("#mappa").val().length>400){
+	        	  alert("Il path della mappa e' troppo lungo.");
+	        	  return false;
+	    	  }
+      		return true;
+          }
+     
+    	  
+    </script>
  
 </head>
 <body>
@@ -25,7 +111,7 @@
             COMPILA I CAMPI E INSERISCI LA TUA NUOVA ATTIVITA'
         </div>
         <div class="card-body">
-            <form action="AggiungiAttivitaControl" method="post">
+            <form action="AggiungiAttivitaControl" method="post" name="modulo" onsubmit="javascript:return Verifica()">
                 <br>
                 <div class="form-group">
                 <% Boolean err = (Boolean) request.getAttribute("errore");
@@ -34,16 +120,16 @@
                 <p id="errore">L'ora di chiusura deve essere maggiore di quella di apertura</p>
                 <%} %>
                     <label for="inputMessage">Nome:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="nome" class="BORDONERO" required>
+                    <input type="text" name="nome" class="BORDONERO" id="nome">
                     <br>
                     <label for="inputMessage">Indirizzo:&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="indirizzo" class="BORDONERO" required>
+                    <input type="text" name="indirizzo" class="BORDONERO" id="indirizzo">
                     <br>
                     <label for="inputMessage">Comune:&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="comune" class="BORDONERO" required>
+                    <input type="text" name="comune" class="BORDONERO" id="comune">
                     <br>
                     <label for="inputMessage">Telefono:&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="telefono" class="BORDONERO" required>
+                    <input type="text" name="telefono" class="BORDONERO" id="telefono">
                     <br>
                     <label for="inputMessage">Giorno di chiusura:&nbsp</label>
                     <select name="giornoChiusura" class="BORDONERO" required>
@@ -88,10 +174,10 @@
                     <input type="number" min=1 max=200 name="posti" class="BORDONERO" required>
                     <br>
                     <label for="inputMessage">Mappa:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-                    <input type="text" name="mappa" class="BORDONERO" required>
+                    <input type="text" name="mappa" class="BORDONERO" id="mappa">
                     <br>
                     <label for="inputMessage">Foto del profilo:&nbsp&nbsp</label>
-                    <input type="text" name="foto" class="BORDONERO" required>
+                    <input type="text" name="foto" class="BORDONERO">
                     <br>
                 </div><br>
                     <button type="submit" class="btn btn-dark btn-lg float-left pren">Conferma</button>
