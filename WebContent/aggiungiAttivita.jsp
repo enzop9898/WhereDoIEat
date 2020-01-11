@@ -40,6 +40,7 @@
     	 
     	  if($("#nome").val().length>20) {
     		  alert("Il campo nome non può avere lunghezza >20");
+    		  return false;
     	  } 
     	  if(  $("#nome").val().length<1 )  {
               alert("Il campo nome non può essere vuoto");
@@ -84,11 +85,22 @@
         	  alert("Il campo telefono non rispetta il formato. Es. 393404181948");
         	  return false;
     	  }
-              					alert("tamp")
+           
 	      if($("#mappa").val().length>400){
 	        	  alert("Il path della mappa e' troppo lungo.");
 	        	  return false;
 	    	  }
+	      if($("#numeroDiPosti").val().length<1){
+	    	  alert("Il campo del numero dei posti non può essere vuoto.");
+	    	  return false;
+	      }
+	      
+	      if($("#numeroDiPosti").val().length>5){
+	    	  alert("Il campo del numero dei posti non può essere >10000.");
+	    	  return false;
+	      }
+	      
+	      
       		return true;
           }
      
@@ -171,7 +183,7 @@
                     </select>
                     <br>
                     <label for="inputMessage">Numero posti:&nbsp</label>
-                    <input type="number" min=1 max=200 name="posti" class="BORDONERO" required>
+                    <input type="number"  name="posti" class="BORDONERO" id="numeroDiPosti">
                     <br>
                     <label for="inputMessage">Mappa:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
                     <input type="text" name="mappa" class="BORDONERO" id="mappa">
