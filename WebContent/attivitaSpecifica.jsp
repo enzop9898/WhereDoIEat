@@ -14,6 +14,22 @@
 	    var st = foto.src;
         $('#galleryImage').attr("src",st.replace("70x70","500x300"));
     }
+    
+
+    function Verifica(){
+    	  var commento = document.modulo.commento.value;
+    	    
+        if(commento.length<10) { 
+      	  alert("Il commento deve avere almeno 10 caratteri.");
+      	  return false;
+    	  }
+        if(commento.length>255){
+        	alert("Il commento puo' avere massimo 255 caratteri.");
+        	  return false;
+        }
+            				
+    	return true;
+    }
     </script> 
 </head>
 <body>
@@ -213,7 +229,7 @@
             LASCIA QUI LA TUA RECENSIONE...
         </div>
         <div class="card-body">
-            <form action="RecensioneControl" method="post">
+            <form action="RecensioneControl" method="post" name="modulo" onsubmit="javascript:return Verifica()">
                 <div class="form-row">
                     <div class="c4l-rating">
                     <label for="inputEmail">Valutazione:</label>
