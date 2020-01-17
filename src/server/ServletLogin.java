@@ -22,15 +22,17 @@ public class ServletLogin extends HttpServlet {
 	// questo counter è visibile solo in questa servlet
 	// e conta il numero di accessi totale da parte di chiunque accede a questa servlet
 	// da quando viene deployed sul server
-	private int servletCount;  
+	private int servletCount;
+
+	private PersonaDAO dao;  
 
 	public void  init() throws ServletException {
 	      // inizializzazione 
 	      servletCount = 0;
+	      
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// recupero login e password e li memorizzo in userB se presenti
 		PersonaBean userB = getUsrPsw(request);
 
@@ -38,17 +40,21 @@ public class ServletLogin extends HttpServlet {
 			response.sendRedirect("Home.jsp");    // non ho bisogno di mandargli parametri. Il nome login.jsp si vedrà nel browser
 		else {
 			try{
-				PersonaDAO ubd = new PersonaDAO();
+				PersonaDAO ubd;
+				if(dao!=null) {
+				  ubd =dao;
+				} else {
+				      ubd=new PersonaDAO();
+				}
 				PersonaBean ub = new PersonaBean();
 				ub=ubd.doRetrieveByLogin(userB.getUsername(), userB.getPassword());
-				if (ub==null) {    // login e/o password sbagliati -> chiamo login form  con messaggio errore
+				if (ub==null) { // login e/o password sbagliati -> chiamo login form  con messaggio errore
 									// il nome login.jsp non si vedrà nel browser
 					request.setAttribute("denied", true);
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
 					requestDispatcher.forward(request, response);
 				}else {
 					// l'utente è ammesso al sito: inserisco dati di login in cookies e do risposta
-					
 					Cookie usrcookie = new Cookie("usr", ub.getUsername());
 					Cookie pswcookie = new Cookie("psw", ub.getPassword());
 					response.addCookie(usrcookie);
@@ -62,7 +68,6 @@ public class ServletLogin extends HttpServlet {
 					
 					request.setAttribute("welcome", true);
 					request.getSession().setAttribute("nom", ub);
-					
 					
                     request.getSession().setAttribute("cliente", ub);
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
@@ -110,7 +115,9 @@ public class ServletLogin extends HttpServlet {
 		
 		return ub;
 	}
-	
+	 public void setDAO(PersonaDAO personaDAO) {
+		 this.dao=personaDAO;
+	 }
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -118,5 +125,4 @@ public class ServletLogin extends HttpServlet {
 		doGet(request, response);
 		
 	}
-
 }

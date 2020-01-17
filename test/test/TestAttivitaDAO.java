@@ -1,13 +1,11 @@
 package test;
 
-import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.*;
 import bean.AttivitaBean;
 import dao.AttivitaDAO;
 import junit.framework.TestCase;

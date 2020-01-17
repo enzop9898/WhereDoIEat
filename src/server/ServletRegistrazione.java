@@ -19,7 +19,7 @@ import dao.PersonaDAO;
 @WebServlet("/ServletRegistrazione")
 public class ServletRegistrazione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private PersonaDAO dao;    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,7 +31,7 @@ public class ServletRegistrazione extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nome=request.getParameter("nome");
 		String cognome=request.getParameter("cognome");
 		String username=request.getParameter("username");
@@ -58,7 +58,12 @@ public class ServletRegistrazione extends HttpServlet {
 		p.setEmail(email);
 		p.setPassword(password);
 		p.setTipo(tipo);
-		PersonaDAO pdao=new PersonaDAO();
+		PersonaDAO pdao;
+		if(dao!=null) {
+		  pdao=dao;
+		} else {
+		      pdao=new PersonaDAO();
+		}
 		try {
 			PersonaBean p2=new PersonaBean();
 			PersonaBean p3=new PersonaBean();
@@ -68,6 +73,7 @@ public class ServletRegistrazione extends HttpServlet {
 				request.setAttribute("failed", true);
 				RequestDispatcher rd=request.getRequestDispatcher("registrazione.jsp");
 				rd.forward(request, response);
+				return;
 			}
 			if(p2!=null) {
 				request.setAttribute("failed", true);
@@ -86,6 +92,10 @@ public class ServletRegistrazione extends HttpServlet {
 		
 		
 	}
+	 
+	 public void setDAO(PersonaDAO personaDAO) {
+		 this.dao=personaDAO;
+	 }
 	
 
 	/**
