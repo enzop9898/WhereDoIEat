@@ -22,6 +22,8 @@ import dao.FotoDAO;
 @WebServlet("/AggiungiAttivitaControl")
 public class AggiungiAttivitaControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private FotoDAO fdao;
+	private AttivitaDAO adao;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,7 +43,7 @@ public class AggiungiAttivitaControl extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String ap = request.getParameter("oraApertura");
 		String ch = request.getParameter("oraChiusura");
@@ -50,6 +52,7 @@ public class AggiungiAttivitaControl extends HttpServlet {
 		if(c<=a) {
 			request.setAttribute("errore", true);
 			request.getRequestDispatcher("/aggiungiAttivita.jsp").forward(request,response);
+			return;
 		}
 		else {	
 			String nome = request.getParameter("nome");
@@ -68,8 +71,12 @@ public class AggiungiAttivitaControl extends HttpServlet {
 			AttivitaBean att = new AttivitaBean(0,nome, comune,a,c,
 					giornoChiusura,indirizzo,telefono, posti, mappa,
 					id);
-			
-			AttivitaDAO d = new AttivitaDAO();
+			AttivitaDAO d;
+			if(adao!=null) {
+				d=adao;
+			} else {
+				d=new AttivitaDAO();
+			}
 			try {
 				d.doSave(att);
 				ArrayList<AttivitaBean> l = new ArrayList<AttivitaBean>();
@@ -77,7 +84,12 @@ public class AggiungiAttivitaControl extends HttpServlet {
 				int idGenerato = l.get(l.size()-1).getIdAttivita();
 				String f = request.getParameter("foto");
 				FotoBean foto = new FotoBean(f,idGenerato);
-				FotoDAO daof = new FotoDAO();
+				FotoDAO daof;
+				if(fdao!=null) {
+					daof=fdao;
+				} else {
+					daof= new FotoDAO();
+				}
 				daof.doSave(foto);
 				
 			} catch (SQLException e) {
@@ -87,6 +99,13 @@ public class AggiungiAttivitaControl extends HttpServlet {
 		}
 		request.setAttribute("successo", true);
 		request.getRequestDispatcher("/aggiungiAttivita.jsp").forward(request,response);
+	}
+	
+	public void setFDao(FotoDAO fdao) {
+		this.fdao=fdao;
+	}
+	public void setADao(AttivitaDAO adao) {
+		this.adao=adao;
 	}
 
 }

@@ -21,7 +21,8 @@ import dao.RecensioneDAO;
 @WebServlet("/RecensioneControl")
 public class RecensioneControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private AttivitaDAO adao2;
+    private RecensioneDAO rdao;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,7 +34,7 @@ public class RecensioneControl extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
@@ -56,7 +57,12 @@ public class RecensioneControl extends HttpServlet {
 		int idAtt = Integer.parseInt(idAtts);
 		String idP = p.getUsername();
 		
-		RecensioneDAO rd = new RecensioneDAO();
+		RecensioneDAO rd;
+		if(rdao!=null) {
+			rd=rdao;
+		} else {
+			rd=new RecensioneDAO();
+		}
         RecensioneBean recensione = new RecensioneBean(val,commento,idP,idAtt);
         try {
 			rd.doSave(recensione);
@@ -64,7 +70,12 @@ public class RecensioneControl extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        AttivitaDAO adao=new AttivitaDAO();
+        AttivitaDAO adao;
+        if(adao2!=null) {
+        	adao=adao2;
+        } else {
+        	adao=new AttivitaDAO();
+        }
         AttivitaBean a =new AttivitaBean();
 		a=adao.doRetrieveByKey(idAtt);
 		request.setAttribute("singolaAttivita", a);
@@ -72,6 +83,13 @@ public class RecensioneControl extends HttpServlet {
         request.getRequestDispatcher("/attivitaSpecifica.jsp").forward(request,response);
 		}
         
+	}
+	
+	public void setADao(AttivitaDAO adao) {
+		this.adao2=adao;
+	}
+	public void setRDao(RecensioneDAO rdao) {
+		this.rdao=rdao;
 	}
 
 }

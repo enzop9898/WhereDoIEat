@@ -19,7 +19,7 @@ import dao.PersonaDAO;
 @WebServlet("/ServletModifica")
 public class ServletModifica extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private PersonaDAO pdao; 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,11 +31,16 @@ public class ServletModifica extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String telefono= request.getParameter("telefono");
 		String citta= request.getParameter("citta");
 		String comune= request.getParameter("comune");
-		PersonaDAO dao=new PersonaDAO();
+		PersonaDAO dao;
+		if(pdao!=null)   {
+			dao=pdao;
+		} else {
+			dao=new PersonaDAO();
+		}
 		PersonaBean vecchia=new PersonaBean();
 		vecchia= (PersonaBean) request.getSession().getAttribute("cliente");
 		if(telefono!="")
@@ -51,7 +56,7 @@ public class ServletModifica extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("modOk", true);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/areaPersonale.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/areaPersonale.jsp");
 		dispatcher.forward(request, response);
 		
 	}
@@ -64,4 +69,8 @@ public class ServletModifica extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public void setPDao(PersonaDAO pdao) {
+		this.pdao=pdao;
+	}
+	
 }
