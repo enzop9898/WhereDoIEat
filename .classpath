@@ -41,5 +41,6 @@
 	<classpathentry kind="lib" path="C:/Users/tanucc/Desktop/jars/jar_files/powermock-reflect-2.0.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/tanucc/Desktop/jars/powermock-api-mockito2-2.0.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/tanucc/Desktop/jars/jar_support/powermock-api-support-2.0.4.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-8.0.18.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -23,7 +23,9 @@ import dao.PrenotazioneDAO;
 @WebServlet("/ServletPrenotazione")
 public class ServletPrenotazione extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private AttivitaDAO adao2=new AttivitaDAO();
+    private PrenotazioneDAO pdao2=new PrenotazioneDAO();
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,7 +37,7 @@ public class ServletPrenotazione extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String data=request.getParameter("data");
 		String oraString=request.getParameter("ora");
 		int ora=Integer.parseInt(oraString);
@@ -52,6 +54,7 @@ public class ServletPrenotazione extends HttpServlet {
 		PersonaBean utente=new PersonaBean();
 		utente=(PersonaBean) request.getSession().getAttribute("cliente");
 		int t = 0; //numero giorni dall inizio dell'anno
+		//controlllo gia fatto su javascript
 		if(mese==1) {
 			t=giorno;
 		}
@@ -115,9 +118,18 @@ public class ServletPrenotazione extends HttpServlet {
 		if(val%7==6) {
 			day="Domenica";
 		}
-		AttivitaDAO adao=new AttivitaDAO();
+		// fine controlli gia fatti su js
+		
+		AttivitaDAO adao;
+		if(adao2!=null) {
+			adao=adao2;
+		} else {
+			adao=new AttivitaDAO();
+		}
 		AttivitaBean a=new AttivitaBean();
 		a=adao.doRetrieveByKey(id);
+		
+		//controllo gia fatto su javascript
 		if(day.equals(a.getGiornoChiusura())) {
 			request.setAttribute("giornoChiusura", true);
 			request.setAttribute("singolaAttivita", a);
@@ -125,20 +137,20 @@ public class ServletPrenotazione extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		PrenotazioneDAO pdao=new PrenotazioneDAO();
+		PrenotazioneDAO pdao;
+		if(pdao2!=null) {
+			pdao=pdao2;
+		} else {
+			pdao=new PrenotazioneDAO();
+		}
 		int tot,tot2,totale;
 		try {
-			response.getWriter().println("1");
 			tot=pdao.doRetrieveByOra(ora,id,data);
-			response.getWriter().println("2");
 			if(ora%100==0) {
-				response.getWriter().println("3");
 				tot2=pdao.doRetrieveByOra(ora-70,id,data);
 			} else {
-				response.getWriter().println("4");
 				tot2=pdao.doRetrieveByOra(ora-30,id,data);
 			}
-			response.getWriter().println("5");
 			totale=tot+tot2;
 			int postiDisp=0;
 			postiDisp=a.getNumPosti()-totale;
@@ -149,13 +161,12 @@ public class ServletPrenotazione extends HttpServlet {
 				p.setNumPosti(posti);
 				p.setOra(ora);
 				p.setPersonaUsername(utente.getUsername());
-				response.getWriter().println("6");
 				pdao.doSave(p);
-				response.getWriter().println("7");
 				request.setAttribute("ok", true);
 				request.setAttribute("singolaAttivita", a);
 				RequestDispatcher rd=request.getRequestDispatcher("attivitaSpecifica.jsp");
 				rd.forward(request, response);
+				System.out.println("ciao");
 			} else {
 				request.setAttribute("postiNonDisp", true);
 				request.setAttribute("singolaAttivita", a);
@@ -168,8 +179,6 @@ public class ServletPrenotazione extends HttpServlet {
 		}
 		
 		
-		//response.getWriter().println(day+"   "+val+"  "+val%7);
-		
 	}
 
 	/**
@@ -180,4 +189,11 @@ public class ServletPrenotazione extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public void setADao(AttivitaDAO adao2) {
+		this.adao2=adao2;
+	}
+	public void setPDao(PrenotazioneDAO pdao2) {
+		this.pdao2=pdao2;
+	}
+	
 }

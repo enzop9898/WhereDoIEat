@@ -1,4 +1,4 @@
-package test;
+package dao;
 
 import static org.junit.Assert.*;
 
@@ -81,7 +81,7 @@ public class TestPersonaDAO extends TestCase{
 		persona2=new PersonaBean("imperatore", "Adriano", "Adriano", "imperatore10@gmail.com", "393478923456", "Rio De Janeiro", 1, "Rio", "Mistersessa69");
 		persone.add(persona2);
 		persone.add(persona);
-		persona2=new PersonaBean("tanucc", "Gaetano", "Mauro", "g.mauro14@studenti.unisa.it", "393404181948", "Salerno", 1, "Fisciano", "mistersessa");
+		persona2=new PersonaBean("tanucc", "Gaetano", "Mauro", "g.mauro14@studenti.unisa.it", "393404181948", "Avellino", 1, "Atripalda", "mistersessa");
 		persone.add(persona2);
 		persona2=new PersonaBean("tanucc33", "Gaetano", "De Lucia", "g.maur44o14@studenti.unisa.it", "3404181948", "Salerno", 1, "Fisciano","mistersessa");
 		persone.add(persona2);
