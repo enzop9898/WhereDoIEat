@@ -72,6 +72,7 @@ public class ServletLogin extends HttpServlet {
                     request.getSession().setAttribute("cliente", ub);
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
 					requestDispatcher.forward(request, response);
+					System.out.println("todo bien");
 				}
 			}
 			catch(Exception e)
