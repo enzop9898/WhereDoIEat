@@ -62,7 +62,7 @@ public class TestPreferitiDAO extends TestCase{
 		assertEquals(null, tester.doRetrieveByKey(p.getIdPref()));
 	}
 
-	@Test 
+	@Test
 	public void testDoUpdate() throws SQLException {
 		p.setAttivitaIDAttivita(2);
 		p.setPersonaUsername("toni9");
