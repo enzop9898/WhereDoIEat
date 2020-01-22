@@ -63,6 +63,7 @@ public class RecensioneControl extends HttpServlet {
 		} else {
 			rd=new RecensioneDAO();
 		}
+		if(p.getTipo()==1) {
         RecensioneBean recensione = new RecensioneBean(val,commento,idP,idAtt);
         try {
 			rd.doSave(recensione);
@@ -81,6 +82,14 @@ public class RecensioneControl extends HttpServlet {
 		request.setAttribute("singolaAttivita", a);
 		request.setAttribute("recensioneFatta", true);
         request.getRequestDispatcher("/attivitaSpecifica.jsp").forward(request,response);
+		} else {
+			AttivitaDAO adao=new AttivitaDAO();
+	    	 AttivitaBean a =new AttivitaBean();
+			a=adao.doRetrieveByKey(idAtt);
+			request.setAttribute("singolaAttivita", a);
+			request.setAttribute("Ristoratore", true);
+	        request.getRequestDispatcher("/attivitaSpecifica.jsp").forward(request,response);
+		}
 		}
         
 	}

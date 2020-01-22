@@ -82,7 +82,13 @@
         	   
          %>
            <p>Prenotazione Effettuata con successo. Trovi la tua prenotazione nella tua area personale.</p>
-         <%} %>
+         <%}
+           Boolean ris=(Boolean)request.getAttribute("Ristoratore");
+           if(ris!=null) {%>
+             <p>L'utente di tipo ristoratore non puo' effettuare recensioni.</p>
+           <%}
+           
+           %>
       <!--Grid row-->
       <div class="row wow fadeIn">
 
